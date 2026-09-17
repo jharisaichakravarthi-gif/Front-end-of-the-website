@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AgriShield AI — Smart Farming</title>
+<style>
+:root{--g:#159957;--g2:#0d6b3e;--bg:#f4faf6;--card:#fff;--text:#173326;--muted:#6a7d72;--line:#d9e8df;--danger:#c83c3c;--warn:#9a6a00;--shadow:0 12px 35px rgba(18,72,44,.10)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select{font:inherit}.app{display:none;min-height:100vh}.sidebar{position:fixed;left:0;top:0;bottom:0;width:245px;background:#fff;border-right:1px solid var(--line);padding:20px 14px;z-index:20}.brand{display:flex;align-items:center;gap:11px;padding:8px 10px 22px}.brand-icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#159957,#63d391);color:white;font-size:24px;box-shadow:0 8px 18px #15995744}.brand strong{display:block}.brand small{color:var(--muted)}.nav button{width:100%;border:0;background:transparent;text-align:left;padding:12px 13px;border-radius:11px;margin:3px 0;color:#476057;cursor:pointer}.nav button:hover,.nav button.active{background:#eaf7ef;color:var(--g2);font-weight:700}.nav button.pay{margin-top:10px;background:#fff8df;color:#735800}.main{margin-left:245px;min-height:100vh}.topbar{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:10}.topbar h2{margin:0;font-size:20px}.lang{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff}.content{padding:26px;max-width:1500px;margin:auto}.page{display:none}.page.active{display:block}.hero{background:linear-gradient(135deg,#0e7a45,#38b66e);color:#fff;border-radius:20px;padding:28px;box-shadow:var(--shadow);margin-bottom:20px}.hero h1{margin:0 0 7px}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:var(--shadow)}.metric .icon{font-size:25px}.metric b{font-size:27px;display:block;margin:8px 0 2px}.metric small{color:var(--muted)}.section-title{display:flex;align-items:center;justify-content:space-between;margin:20px 0 12px}.section-title h2{margin:0}.btn{border:0;border-radius:10px;padding:10px 15px;cursor:pointer;font-weight:700}.primary{background:var(--g);color:#fff}.secondary{background:#eaf7ef;color:var(--g2)}.dark{background:#18352a;color:#fff}.danger{background:#ffe9e9;color:#9d2727}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.field label{display:block;font-size:13px;color:#61756b;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;padding:10px;border:1px solid #cbded3;border-radius:9px;background:#fff;outline:none}.field input:focus,.field select:focus{border-color:var(--g)}table{width:100%;border-collapse:collapse}th,td{padding:11px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}.pill{display:inline-block;padding:5px 9px;border-radius:99px;background:#eaf7ef;color:var(--g2);font-size:12px;font-weight:700}.activity{display:grid;gap:10px}.activity div{padding:11px;border-left:4px solid #73c995;background:#f8fcf9;border-radius:8px}.drop-zone{border:2px dashed #8fc3a1;border-radius:17px;background:#f7fcf8;padding:38px 25px;text-align:center;cursor:pointer;transition:.2s}.drop-zone.drag{background:#e2f7e9;border-color:var(--g);transform:scale(1.01)}.drop-zone .big{font-size:42px}.scan-preview{max-width:100%;max-height:300px;border-radius:14px;margin-top:15px;display:none}.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.plan{position:relative}.plan.featured{border:2px solid var(--g)}.price{font-size:29px;font-weight:800;margin:8px 0 15px}.plan li{margin:8px 0;color:#5c7067}.payment-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.payment-method{border:1px solid var(--line);background:#fff;border-radius:11px;padding:13px;cursor:pointer;text-align:center}.payment-method.selected{border:2px solid var(--g);background:#effaf3}.payment-fields{display:none}.payment-fields.active{display:block}.note{padding:12px;border-radius:10px;background:#fff8df;color:#705500;font-size:13px}.search-row{display:grid;grid-template-columns:1fr 220px 220px auto;gap:10px}.search-row input,.search-row select{padding:11px;border:1px solid var(--line);border-radius:10px;background:#fff}.products{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}.product h3{margin:8px 0}.product .price{font-size:22px}.tag{font-size:12px;background:#edf6f0;border-radius:99px;padding:5px 8px;display:inline-block;margin:2px}.recommend{background:#f7fbf8;border:1px solid var(--line);padding:12px;border-radius:11px;font-size:13px}.toast{position:fixed;right:20px;bottom:20px;background:#18352a;color:#fff;padding:12px 16px;border-radius:10px;opacity:0;transform:translateY(12px);transition:.25s;z-index:100}.toast.show{opacity:1;transform:none}
+@media(max-width:1050px){.grid{grid-template-columns:repeat(2,1fr)}.products{grid-template-columns:repeat(2,1fr)}.plans{grid-template-columns:1fr}.search-row{grid-template-columns:1fr 1fr}.search-row button{grid-column:span 2}}
+@media(max-width:720px){.sidebar{width:220px}.main{margin-left:220px}.grid,.grid2,.products,.form-grid{grid-template-columns:1fr}.payment-methods{grid-template-columns:1fr}.search-row{grid-template-columns:1fr}.search-row button{grid-column:auto}.content{padding:15px}.topbar{padding:0 15px}}
+/* 3D opening animation */
+.splash{position:fixed;inset:0;background:radial-gradient(circle at 50% 40%,#2acb73 0,#0c4d31 38%,#031b12 100%);display:grid;place-items:center;z-index:999;overflow:hidden}.splash:before,.splash:after{content:"";position:absolute;border:1px solid #76ffb333;border-radius:50%;animation:spin 9s linear infinite}.splash:before{width:520px;height:520px;box-shadow:0 0 80px #21d56c33}.splash:after{width:720px;height:720px;animation-direction:reverse;animation-duration:13s}.orb{position:absolute;width:11px;height:11px;background:#a8ffd0;border-radius:50%;box-shadow:0 0 20px #9dffd0;animation:orbit 5s linear infinite}.orb.o2{animation-duration:7s;animation-delay:-2s}.orb.o3{animation-duration:9s;animation-delay:-5s}.splash-card{position:relative;text-align:center;color:#fff;perspective:800px}.logo3d{font-size:82px;filter:drop-shadow(0 18px 20px #0008);animation:float3d 2.7s ease-in-out infinite;transform-style:preserve-3d}.splash-card h1{font-size:38px;margin:10px 0 4px;text-shadow:0 8px 22px #0008}.splash-card p{opacity:.85}.loader{width:270px;height:6px;background:#ffffff25;border-radius:99px;margin:20px auto;overflow:hidden}.loader i{display:block;height:100%;width:0;background:#a8ffd0;animation:load 2.6s ease forwards}.splash-card small{opacity:.7}@keyframes load{to{width:100%}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes float3d{0%,100%{transform:rotateY(-18deg) rotateX(8deg) translateY(0)}50%{transform:rotateY(18deg) rotateX(-8deg) translateY(-12px)}}@keyframes orbit{from{transform:rotate(0deg) translateX(260px) rotate(0deg)}to{transform:rotate(360deg) translateX(260px) rotate(-360deg)}}
+
+/* ===== AgriShield 3D Interface Theme ===== */
+:root{--agri-glow:#59e391;--agri-dark:#062719;--agri-mid:#0d6b3e}
+body{background:radial-gradient(circle at 75% 8%,rgba(46,190,111,.09),transparent 28%),#f4faf6}
+.main{position:relative;overflow:hidden}
+.main:before{content:"";position:fixed;right:-180px;top:90px;width:430px;height:430px;border:1px solid rgba(21,153,87,.10);border-radius:50%;pointer-events:none;animation:interfaceOrbit 18s linear infinite}
+.main:after{content:"";position:fixed;right:35px;top:300px;width:8px;height:8px;border-radius:50%;background:#59e391;box-shadow:0 0 22px #59e391;pointer-events:none;animation:orbitDot 7s linear infinite}
+.card{transition:transform .25s ease,box-shadow .25s ease;transform-style:preserve-3d}
+.card:hover{transform:translateY(-4px) rotateX(.7deg);box-shadow:0 18px 42px rgba(18,72,44,.15)}
+.hero{position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;width:230px;height:230px;right:-70px;top:-80px;border:1px solid rgba(255,255,255,.22);border-radius:50%;box-shadow:0 0 55px rgba(168,255,208,.12);animation:heroRing 8s linear infinite}
+.hero:after{content:"🌱";position:absolute;right:55px;bottom:18px;font-size:72px;opacity:.13;filter:drop-shadow(0 10px 15px #0004);animation:leafFloat 4s ease-in-out infinite}
+.metric{position:relative;overflow:hidden}
+.metric:after{content:"";position:absolute;right:-30px;bottom:-40px;width:110px;height:110px;border:1px solid rgba(21,153,87,.12);border-radius:50%;animation:metricSpin 10s linear infinite}
+.brand-icon{animation:brandFloat 3s ease-in-out infinite;transform-style:preserve-3d}
+.nav button{transition:transform .18s ease,background .18s ease}
+.nav button:hover{transform:translateX(4px)}
+.drop-zone{position:relative;overflow:hidden}
+.drop-zone:before{content:"";position:absolute;inset:-60%;background:conic-gradient(from 0deg,transparent 0 78%,rgba(89,227,145,.15) 84%,transparent 90%);animation:dropSpin 7s linear infinite;pointer-events:none}
+.drop-zone>*{position:relative;z-index:1}
+.payment-method{transition:transform .2s ease,box-shadow .2s ease}
+.payment-method:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(18,72,44,.10)}
+.pill{box-shadow:0 3px 10px rgba(21,153,87,.10)}
+@keyframes interfaceOrbit{to{transform:rotate(360deg)}}
+@keyframes orbitDot{from{transform:rotate(0deg) translateX(210px)}to{transform:rotate(360deg) translateX(210px)}}
+@keyframes heroRing{to{transform:rotate(360deg)}}
+@keyframes leafFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-12px) rotate(7deg)}}
+@keyframes metricSpin{to{transform:rotate(360deg)}}
+@keyframes brandFloat{0%,100%{transform:rotateY(-8deg) translateY(0)}50%{transform:rotateY(8deg) translateY(-3px)}}
+@keyframes dropSpin{to{transform:rotate(360deg)}}
+
+
+.scene3d{position:fixed;right:18px;top:78px;width:150px;height:150px;z-index:1;pointer-events:none;perspective:700px;opacity:.9}
+.scene-glow{position:absolute;inset:38px;border-radius:50%;background:rgba(89,227,145,.10);box-shadow:0 0 50px rgba(21,153,87,.18);animation:scenePulse 3.5s ease-in-out infinite}
+.scene-ring{position:absolute;left:25px;top:25px;width:100px;height:100px;border:1px solid rgba(21,153,87,.18);border-radius:50%;transform-style:preserve-3d}
+.ring-a{transform:rotateX(66deg);animation:sceneSpin 8s linear infinite}
+.ring-b{transform:rotateY(66deg);animation:sceneSpinReverse 11s linear infinite}
+.scene-cube{position:absolute;width:43px;height:43px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(145deg,#ffffff,#e5f5eb);border:1px solid rgba(21,153,87,.18);box-shadow:0 12px 25px rgba(18,72,44,.13);font-size:21px;transform-style:preserve-3d}
+.cube-a{left:54px;top:8px;animation:cubeA 5s ease-in-out infinite}
+.cube-b{left:8px;top:78px;animation:cubeB 6s ease-in-out infinite}
+.cube-c{right:5px;top:78px;animation:cubeC 7s ease-in-out infinite}
+@keyframes sceneSpin{to{transform:rotateX(66deg) rotateZ(360deg)}}
+@keyframes sceneSpinReverse{to{transform:rotateY(66deg) rotateZ(-360deg)}}
+@keyframes scenePulse{0%,100%{transform:scale(.9);opacity:.5}50%{transform:scale(1.12);opacity:1}}
+@keyframes cubeA{0%,100%{transform:translateY(0) rotateY(-12deg) rotateX(5deg)}50%{transform:translateY(-12px) rotateY(18deg) rotateX(-8deg)}}
+@keyframes cubeB{0%,100%{transform:translateY(0) rotateZ(-5deg)}50%{transform:translateY(-8px) rotateZ(7deg)}}
+@keyframes cubeC{0%,100%{transform:translateY(0) rotateY(10deg)}50%{transform:translateY(-10px) rotateY(-18deg)}}
+@media(max-width:900px){.scene3d{display:none}}
+
+
+.scan-summary{overflow:hidden}
+.scan-head{display:flex;justify-content:space-between;gap:20px;align-items:center}
+.score-ring{width:108px;height:108px;border-radius:50%;display:grid;place-content:center;text-align:center;background:radial-gradient(circle at center,#fff 54%,transparent 55%),conic-gradient(#159957 0deg,#159957 var(--score,0deg),#dcefe4 var(--score,0deg));box-shadow:0 12px 28px rgba(21,153,87,.16);font-weight:900;font-size:27px;flex:0 0 auto}
+.score-ring small{font-size:11px;color:#66806f;font-weight:700;margin-top:-4px}
+.scan-bars{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}
+.scan-bars>div{padding:13px;border:1px solid #e2efe7;border-radius:14px;background:#fbfefc}
+.scan-bars span{font-size:13px;color:#63776b}.scan-bars b{float:right}
+.bar{height:8px;background:#e7f1eb;border-radius:99px;overflow:hidden;margin-top:9px}
+.bar i{display:block;height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#159957,#63c77f);transition:width .7s ease}
+.result-list{margin:10px 0 0;padding-left:20px}.result-list li{margin:9px 0;line-height:1.45}
+.scan-disclaimer{background:#fffaf0;border-color:#f2dfb3;color:#6c5a2b}
+@media(max-width:760px){.scan-bars{grid-template-columns:1fr}.scan-head{align-items:flex-start}.score-ring{width:88px;height:88px;font-size:22px}}
+
+
+.language-wrap{display:flex;align-items:center;gap:7px;font-weight:700;color:#2c5a43}.lang-select{appearance:auto;border:1px solid #d9e9df;border-radius:12px;padding:9px 12px;background:#fff;color:#183b29;font-weight:700;cursor:pointer;box-shadow:0 5px 16px rgba(20,90,50,.08)}
+.pest-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.pest-stat{background:#f8fcf9;border:1px solid var(--line);border-radius:14px;padding:14px}.pest-stat b{display:block;font-size:22px;margin-top:4px}.pest-stat small{color:var(--muted)}.pest-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.product .price{margin:8px 0}.product{min-height:235px}.product .recommend{margin-top:8px}.catalog-note{font-size:12px;color:#687b71}@media(max-width:900px){.pest-stats{grid-template-columns:repeat(2,1fr)}}</style>
+
+
+<style>
+/* ===== PERFORMANCE / STABILITY PATCH =====
+   Keeps navigation instant, reduces unnecessary full-DOM work, and prevents
+   high-frequency controls from repeatedly rebuilding the whole interface. */
+:root{--motion-fast:.12s;--motion-med:.18s}
+html{scroll-behavior:auto}
+.page{will-change:auto}
+.nav button,.btn,.payment-method{transition:background var(--motion-fast) ease,color var(--motion-fast) ease,transform var(--motion-fast) ease,box-shadow var(--motion-fast) ease}
+.card{transition:transform var(--motion-fast) ease,box-shadow var(--motion-fast) ease}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* Limit continuous decorative animations; functionality is unaffected. */
+.main:before,.main:after,.scene-ring,.scene-glow,.scene-cube,.brand-icon,.hero:before,.hero:after,.metric:after,.drop-zone:before{animation-duration:24s}
+
+</style>
+<style>
+/* ===== Fast opening animation + lightweight performance mode ===== */
+.splash{background:radial-gradient(circle at 50% 45%,#1b9f5b 0,#083c27 42%,#02150d 100%)}
+.field-grid{position:absolute;inset:-20%;background:linear-gradient(90deg,transparent 48%,rgba(168,255,208,.12) 50%,transparent 52%),linear-gradient(0deg,transparent 48%,rgba(168,255,208,.12) 50%,transparent 52%);background-size:70px 70px;transform:perspective(500px) rotateX(62deg) scale(1.5);animation:gridMove 2.8s linear infinite;opacity:.55}
+.scan-beam{position:absolute;left:10%;right:10%;height:2px;top:18%;background:linear-gradient(90deg,transparent,#b8ffcf,transparent);box-shadow:0 0 22px #a8ffd0;animation:beamMove 2.4s ease-in-out infinite}
+.seed{position:absolute;font-size:28px;filter:drop-shadow(0 5px 12px #0007);animation:seedFloat 3.5s ease-in-out infinite}.seed-a{left:14%;top:24%}.seed-b{right:16%;top:31%;animation-delay:-1.2s}.seed-c{left:20%;bottom:20%;animation-delay:-2.1s}
+.splash-card{z-index:2}.logo3d{animation:logoPulse 1.8s ease-in-out infinite}.loading-track{width:260px;height:5px;background:#ffffff22;border-radius:99px;margin:20px auto;overflow:hidden}.loading-track i{display:block;height:100%;width:0;background:#b8ffcf;animation:fastLoad 1.65s ease forwards}
+@keyframes gridMove{from{background-position:0 0}to{background-position:70px 70px}}@keyframes beamMove{0%,100%{transform:translateY(0);opacity:.25}50%{transform:translateY(64vh);opacity:1}}@keyframes seedFloat{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-12px) rotate(5deg)}}@keyframes logoPulse{0%,100%{transform:scale(1) rotateY(-8deg)}50%{transform:scale(1.06) rotateY(8deg)}}@keyframes fastLoad{to{width:100%}}
+/* Stop expensive perpetual UI motion after load; keep interactions responsive. */
+.main:before,.main:after,.scene-ring,.scene-glow,.scene-cube,.brand-icon,.hero:before,.hero:after,.metric:after,.drop-zone:before{animation:none!important}
+.card{transition:box-shadow .12s ease,transform .12s ease}.card:hover{transform:none;box-shadow:0 12px 28px rgba(18,72,44,.11)}.nav button:hover{transform:none}.drop-zone.drag{transform:none}
+img{content-visibility:auto}.products{contain:layout paint}.scan-preview{object-fit:contain;background:#f5faf7}
+@media (prefers-reduced-motion:reduce){.field-grid,.scan-beam,.seed,.logo3d,.loading-track i{animation:none!important}}
+</style>
+
+<style>
+/* ===== Smooth, stable navigation & scrolling ===== */
+html{scroll-behavior:smooth;scroll-padding-top:78px}
+body{overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.main{min-height:100vh}
+.content{scroll-margin-top:80px}
+.page{animation:pageIn .18s ease both}
+@keyframes pageIn{from{opacity:.0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.topbar{backdrop-filter:saturate(1.05);-webkit-backdrop-filter:saturate(1.05)}
+.nav{overflow-y:auto;max-height:calc(100vh - 95px);scrollbar-width:thin}
+.products{content-visibility:auto;contain-intrinsic-size:600px}
+.card,.hero{backface-visibility:hidden}
+@media(max-width:720px){
+  .sidebar{overflow-y:auto}
+  .topbar{position:sticky}
+  .content{padding-bottom:32px}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ .page{animation:none}
+}
+</style>
+</head>
+<body>
+<div class="splash" id="splash"><div class="field-grid"></div><div class="scan-beam"></div><div class="seed seed-a">🌱</div><div class="seed seed-b">🌾</div><div class="seed seed-c">💧</div><div class="splash-card"><div class="logo3d">🛡️</div><h1>AgriShield AI</h1><p>Detect • Protect • Grow</p><div class="loading-track"><i></i></div><small>Initializing smart farming intelligence...</small></div></div>
+
+<div class="app" id="app">
+<aside class="sidebar">
+ <div class="brand"><div class="brand-icon">🛡️</div><div><strong>AgriShield AI</strong><small>Smart Farming</small></div></div>
+ <nav class="nav">
+  <button class="active" data-page="dashboard">📊 Dashboard</button>
+  <button data-page="crops">🌱 My Crops</button>
+  <button data-page="scan">🔬 AI Crop Scan</button>
+  <button data-page="irrigation">💧 Irrigation</button>
+  <button data-page="alerts">🔔 Alerts</button>
+  <button data-page="pesticides">🧪 Pesticides</button>
+  <button data-page="settings">⚙️ Settings</button>
+ </nav>
+</aside>
+<main class="main">
+<div class="scene3d" aria-hidden="true">
+  <div class="scene-glow"></div>
+  <div class="scene-ring ring-a"></div>
+  <div class="scene-ring ring-b"></div>
+  <div class="scene-cube cube-a">🌱</div>
+  <div class="scene-cube cube-b">💧</div>
+  <div class="scene-cube cube-c">🛡️</div>
+</div>
+<header class="topbar"><h2 id="pageTitle">Dashboard</h2><label class="language-wrap" aria-label="Website language">🌐 <select id="language" class="lang lang-select" title="Change website language"><option value="en">English</option><option value="te">తెలుగు</option><option value="hi">हिन्दी</option><option value="ta">தமிழ்</option><option value="kn">ಕನ್ನಡ</option><option value="ml">മലയാളം</option><option value="mr">मराठी</option><option value="bn">বাংলা</option></select></label></header>
+<div class="content">
+
+<section id="dashboard" class="page active">
+ <div class="hero"><h1>Smart farming at a glance 🌾</h1><p>Monitor crops, irrigation, AI scans, alerts and crop-protection products in one place.</p></div>
+ <div class="grid">
+  <div class="card metric"><span class="icon">🌱</span><b id="cropCount">0</b><small>Active Crops</small></div>
+  <div class="card metric"><span class="icon">💧</span><b>28%</b><small>Soil Moisture</small></div>
+  <div class="card metric"><span class="icon">🌡️</span><b>29°C</b><small>Temperature</small></div>
+ </div>
+ <div class="grid2">
+  <div class="card"><div class="section-title"><h2>Working Options</h2><span class="pill" id="systemStatus">Ready</span></div>
+   <div class="activity">
+    <div>🌱 <b>Crop records:</b> <span id="workCrops">Ready</span></div>
+    <div>🔬 <b>AI Crop Scan:</b> <span id="workScan">Ready</span></div>
+    <div>💧 <b>Smart Irrigation:</b> <span id="workIrrigation">Ready</span></div>
+    <div>🧪 <b>Pesticide Finder:</b> <span>Ready</span></div>
+   </div>
+  </div>
+  <div class="card"><div class="section-title"><h2>AI Recommendation</h2><span>🤖</span></div>
+   <p>Soil moisture is below the demo threshold. Inspect the field and consider controlled irrigation.</p>
+   <button class="btn primary" data-page="irrigation">Open Irrigation</button>
+  </div>
+ </div>
+ <div class="section-title"><h2>Quick Actions</h2></div>
+ <div class="grid2">
+  <div class="card"><button class="btn primary" data-page="scan">🔬 Scan Crop</button> <button class="btn secondary" data-page="pesticides">🧪 Find Pesticide</button></div>
+  <div class="card"><button class="btn secondary" data-page="irrigation">💧 Irrigation</button> <button class="btn secondary" data-page="alerts">🔔 Alerts</button></div>
+ </div>
+</section>
+
+<section id="crops" class="page">
+ <div class="section-title"><h2>My Crops</h2></div>
+ <div class="card"><form id="cropForm" class="form-grid">
+  <div class="field"><label>Crop name</label><input id="cropName" required placeholder="e.g. Tomato"></div>
+  <div class="field"><label>Field / area</label><input id="cropArea" required placeholder="e.g. Field A"></div>
+  <div><button class="btn primary" type="submit">Add Crop</button></div>
+ </form></div>
+ <div class="card" style="margin-top:18px"><table><thead><tr><th>Crop</th><th>Field</th><th>Status</th><th>Action</th></tr></thead><tbody id="cropTable"></tbody></table></div>
+</section>
+
+<section id="scan" class="page">
+ <div class="hero"><h1>AI Crop Scan 🔬</h1><p>Upload a clear crop/leaf image. The browser will analyse visible colour and texture patterns and generate a health score, findings, advice and treatment candidates.</p></div>
+ <div class="card">
+  <!-- ONE combined upload group: click/select OR drag/drop -->
+  <div class="drop-zone" id="dropZone">
+   <div class="big">📷</div><h3>Upload crop image</h3>
+   <p>Drag & drop an image here, or click this same area to select an image.</p>
+   <button class="btn primary" id="chooseImage" type="button">Select Image</button>
+   <input id="scanInput" type="file" accept="image/*" hidden>
+   <img id="scanPreview" class="scan-preview" alt="Crop preview">
+  </div>
+  <div id="scanReport" style="display:none;margin-top:18px">
+   <div class="scan-summary card">
+    <div class="scan-head"><div><h3 id="scanCondition">Crop condition</h3><p id="scanSummaryText" class="muted">Analysis ready.</p></div><div class="score-ring"><span id="scanScore">--</span><small>/100</small></div></div>
+    <div class="scan-bars">
+     <div><span>Plant health</span><b id="healthScore">--</b><div class="bar"><i id="healthBar"></i></div></div>
+     <div><span>Stress level</span><b id="stressScore">--</b><div class="bar"><i id="stressBar"></i></div></div>
+     <div><span>Image quality</span><b id="qualityScore">--</b><div class="bar"><i id="qualityBar"></i></div></div>
+    </div>
+   </div>
+   <div class="grid2" style="margin-top:15px">
+    <div class="card"><h3>🔎 What the image contains</h3><ul id="scanFindings" class="result-list"></ul></div>
+    <div class="card"><h3>🌿 Crop condition advice</h3><ul id="scanAdvice" class="result-list"></ul></div>
+   </div>
+   <div class="grid2" style="margin-top:15px">
+    <div class="card"><h3>✅ Advantages / positive signs</h3><ul id="scanAdvantages" class="result-list"></ul></div>
+    <div class="card"><h3>⚠️ Disadvantages / risk signs</h3><ul id="scanDisadvantages" class="result-list"></ul></div>
+   </div>
+   <div class="grid2" style="margin-top:15px">
+    <div class="card"><h3>🌿 Plant contents & visible features</h3><ul id="plantContents" class="result-list"></ul></div>
+    <div class="card"><h3>📋 Detailed crop condition</h3><ul id="cropConditionGrid" class="result-list"></ul></div>
+   </div>
+   <div class="grid2" style="margin-top:15px">
+    <div class="card"><h3>🦠 Disease / stress screening</h3><div id="diseaseName" class="pill">Not detected</div><p id="diseaseConfidence" class="muted"></p><ul id="diseaseReasons" class="result-list"></ul></div>
+    <div class="card"><h3>🔍 Next checks</h3><ul id="diseaseNext" class="result-list"></ul></div>
+   </div>
+   <div class="card" style="margin-top:15px">
+    <div class="section-title"><div><h3>🧪 Suggested pesticides / treatments</h3><p class="muted">Suggestions are based on visible symptom patterns only. Confirm the crop and disease before applying any product.</p></div><button class="btn secondary" id="openPesticidesFromScan" type="button">Open Pesticide Finder</button></div>
+    <div id="scanPesticides" class="products"></div>
+   </div>
+   <div class="card scan-disclaimer" style="margin-top:15px"><b>Important:</b> This is an on-device visual screening aid, not a laboratory diagnosis. Results can be affected by lighting, camera quality, leaf age, background and image angle. Follow the product label and local agricultural guidance before treatment.</div>
+  </div>
+ </div>
+</section>
+
+<section id="irrigation" class="page">
+ <div class="section-title"><h2>Smart Irrigation</h2></div>
+ <div class="grid2">
+  <div class="card"><h3>Pump Control</h3><p>Status: <span class="pill" id="pumpStatus">OFF</span></p><button class="btn primary" id="pumpBtn">Turn Pump ON</button><button class="btn secondary" id="autoBtn" style="margin-left:7px">Auto Mode: OFF</button></div>
+  <div class="card"><h3>Moisture Threshold</h3><input id="threshold" type="range" min="10" max="80" value="30" style="width:100%"><div><b id="thresholdValue">30%</b></div></div>
+ </div>
+ <div class="card" style="margin-top:18px"><h3>Schedule Irrigation</h3><form id="scheduleForm" class="form-grid"><div class="field"><label>Date</label><input id="sDate" type="date" required></div><div class="field"><label>Time</label><input id="sTime" type="time" required></div><div class="field"><label>Duration (minutes)</label><input id="sDuration" type="number" value="20" min="1" required></div><div><button class="btn primary">Add Schedule</button></div></form><div id="scheduleList" class="activity" style="margin-top:15px"></div></div>
+</section>
+
+<section id="alerts" class="page">
+ <div class="section-title"><h2>Alerts</h2><button class="btn secondary" id="clearAlerts">Clear Alerts</button></div>
+ <div class="card"><div id="alertList" class="activity"></div></div>
+</section>
+
+<section id="pesticides" class="page">
+ <div class="hero"><h1>Pesticide Finder 🧪</h1><p>Select a pesticide category and crop disease/pest to find matching products and indicative market prices.</p></div>
+ <div class="card">
+  <div class="search-row">
+   <input id="pestSearch" placeholder="Search disease, pest or product...">
+   <select id="pestCategory">
+<option value="all">All categories</option>
+<option value="Insecticide">🐛 Insecticides</option>
+<option value="Fungicide">🍃 Fungicides</option>
+<option value="Herbicide">🌾 Herbicides</option>
+<option value="Biological / Botanical">🌿 Biological / Botanical</option>
+</select>
+   <select id="pestDisease"><option value="all">All diseases / pests</option></select>
+   <button class="btn primary" id="pestSearchBtn">Search</button>
+  </div>
+  <p class="note" style="margin-top:14px">Prices are indicative catalogue/demo values for September 2026 and can vary by pack size, seller and location. This page is an educational reference, not a diagnosis or prescription. Verify the current product label, registration status, approved crop use and local agricultural guidance before any real-world decision.</p>
+ </div>
+ <div class="pest-stats" id="pestStats"></div>
+  <div class="section-title"><h2>Product & disease catalogue</h2><span class="pill" id="pestCount">0 products</span></div>
+  <div id="pesticideResults" class="products"></div>
+</section>
+
+<section id="settings" class="page">
+ <div class="section-title"><h2>Settings</h2></div>
+ <div class="card"><h3>Farm Settings</h3><div class="form-grid">
+  <div class="field"><label>Farmer name</label><input id="farmerName"></div>
+  <div class="field"><label>Farm location</label><input id="farmLocation"></div>
+  <div class="field"><label>Preferred crop</label><input id="preferredCrop"></div>
+  <div class="field"><label>Moisture threshold</label><input id="settingsThreshold" type="number" min="10" max="80"></div>
+ </div><div style="margin-top:15px"><button class="btn primary" id="saveSettings">Save Settings</button> <button class="btn danger" id="resetData">Reset Demo Data</button></div></div>
+ </section>
+
+</div></main></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const defaultState={crops:[{name:"Tomato",area:"Field A"},{name:"Rice",area:"Field B"}],activities:["System ready"],alerts:["Soil moisture is below the demo threshold."],schedules:[],settings:{farmer:"",location:"",preferred:"Tomato",threshold:30},pump:false,auto:false};
+let state=JSON.parse(localStorage.getItem("agriShieldState")||"null")||defaultState;
+function save(){localStorage.setItem("agriShieldState",JSON.stringify(state));renderAll()}
+function toast(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2300)}
+function go(page){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));$(page).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));$("pageTitle").textContent=page==="pesticides"?tr("Pesticides"):tr(page==="crops"?"My Crops":page==="scan"?"AI Crop Scan":page==="irrigation"?"Irrigation":page==="alerts"?"Alerts":page==="settings"?"Settings":"Dashboard");window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+
+function renderAll(){
+ const setText=(id,value)=>{const el=$(id);if(el)el.textContent=value};
+ const setValue=(id,value)=>{const el=$(id);if(el)el.value=value};
+ setText("cropCount",state.crops.length);
+ setText("workCrops",state.crops.length+" records ready");
+ setText("workScan","Enabled");
+ setText("workIrrigation","Ready");
+ setValue("farmerName",state.settings.farmer||"");
+ setValue("farmLocation",state.settings.location||"");
+ setValue("preferredCrop",state.settings.preferred||"Tomato");
+ setValue("settingsThreshold",state.settings.threshold||30);
+ setValue("threshold",state.settings.threshold||30);
+ setText("thresholdValue",(state.settings.threshold||30)+"%");
+ setText("pumpStatus",state.pump?"ON":"OFF");
+ setText("pumpBtn",state.pump?"Turn Pump OFF":"Turn Pump ON");
+ setText("autoBtn","Auto Mode: "+(state.auto?"ON":"OFF"));
+ const cropTable=$("cropTable");
+ if(cropTable) cropTable.innerHTML=state.crops.map((c,i)=>`<tr><td>${esc(c.name)}</td><td>${esc(c.area)}</td><td><span class="pill">Active</span></td><td><button class="btn danger" onclick="removeCrop(${i})">Remove</button></td></tr>`).join("");
+ const alertList=$("alertList");
+ if(alertList) alertList.innerHTML=(state.alerts.length?state.alerts:["No active alerts."]).map(a=>`<div>🔔 ${esc(a)}</div>`).join("");
+ const scheduleList=$("scheduleList");
+ if(scheduleList) scheduleList.innerHTML=state.schedules.map(s=>`<div>💧 ${esc(s.date)} at ${esc(s.time)} — ${esc(s.duration)} min</div>`).join("")||"<div>No schedules yet.</div>";
+}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+window.removeCrop=i=>{state.crops.splice(i,1);state.activities.unshift("Crop removed");save();toast("Crop removed")};
+
+$("cropForm").addEventListener("submit",e=>{e.preventDefault();state.crops.push({name:$("cropName").value.trim(),area:$("cropArea").value.trim()});state.activities.unshift("New crop added");e.target.reset();save();toast("Crop added")});
+$("pumpBtn").onclick=()=>{state.pump=!state.pump;state.activities.unshift("Pump turned "+(state.pump?"ON":"OFF"));save();toast("Pump "+(state.pump?"ON":"OFF"))};
+$("autoBtn").onclick=()=>{state.auto=!state.auto;save();toast("Auto mode "+(state.auto?"ON":"OFF"))};
+$("threshold").oninput=()=>{$("thresholdValue").textContent=$("threshold").value+"%";state.settings.threshold=Number($("threshold").value);save()};
+$("scheduleForm").addEventListener("submit",e=>{e.preventDefault();state.schedules.push({date:$("sDate").value,time:$("sTime").value,duration:$("sDuration").value});state.activities.unshift("Irrigation schedule added");e.target.reset();save();toast("Schedule added")});
+$("clearAlerts").onclick=()=>{state.alerts=[];save();toast("Alerts cleared")};
+$("saveSettings").onclick=()=>{state.settings={farmer:$("farmerName").value.trim(),location:$("farmLocation").value.trim(),preferred:$("preferredCrop").value.trim(),threshold:Number($("settingsThreshold").value)||30};save();toast("Settings saved")};
+$("resetData").onclick=()=>{if(confirm("Reset all demo data?")){localStorage.removeItem("agriShieldState");state=JSON.parse(JSON.stringify(defaultState));renderAll();toast("Demo data reset")}};
+
+/* Combined single-group crop image upload */
+const dz=$("dropZone"),fileInput=$("scanInput");
+function analyzeCropImage(file){
+ if(!file || !file.type.startsWith("image/")) return;
+ const img=new Image();
+ const url=URL.createObjectURL(file);
+ $("scanReport").style.display="none";
+ $("scanPreview").style.display="none";
+ img.decoding="async";
+ img.onload=function(){
+   const max=700, scale=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
+   const canvas=document.createElement("canvas");
+   canvas.width=Math.max(1,Math.round(img.naturalWidth*scale));
+   canvas.height=Math.max(1,Math.round(img.naturalHeight*scale));
+   const ctx=canvas.getContext("2d",{willReadFrequently:true});
+   ctx.drawImage(img,0,0,canvas.width,canvas.height);
+   const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+   let green=0,yellow=0,brown=0,dark=0,bright=0,plant=0,leafPixels=0;
+   let sum=0,sumSq=0,n=0;
+   const step=Math.max(4,Math.floor(data.length/4/45000))*4;
+   for(let i=0;i<data.length;i+=step){
+     const r=data[i],g=data[i+1],b=data[i+2];
+     const mx=Math.max(r,g,b),mn=Math.min(r,g,b);
+     const sat=mx===0?0:(mx-mn)/mx;
+     const lum=(0.2126*r+0.7152*g+0.0722*b);
+     sum+=lum;sumSq+=lum*lum;n++;
+     if(lum>225) bright++;
+     if(lum<45) dark++;
+     const isGreen=(g>r*1.08 && g>b*1.05 && g>55 && sat>.16);
+     const isYellow=(r>115 && g>105 && b<g*.78 && r>b*1.25);
+     const isBrown=(r>70 && g>35 && b<g*.9 && r>g*1.15);
+     if(isGreen){green++;leafPixels++}
+     if(isYellow)yellow++;
+     if(isBrown)brown++;
+     if(isGreen||isYellow||isBrown)plant++;
+   }
+   const total=n||1;
+   const greenPct=green/total*100, yellowPct=yellow/total*100, brownPct=brown/total*100;
+   const darkPct=dark/total*100, brightPct=bright/total*100;
+   const mean=sum/total, variance=Math.max(0,sumSq/total-mean*mean), contrast=Math.sqrt(variance);
+   const plantPct=plant/total*100;
+   const quality=Math.max(35,Math.min(98,Math.round(100-Math.abs(mean-125)*.28-Math.max(0,8-contrast)*2)));
+   let stress=0, signs=[], advice=[], advantages=[], disadvantages=[], suggestions=[], plantContents=[], cropCondition=[], diseaseReasons=[], diseaseNext=[];
+   if(greenPct>=18){advantages.push("Visible green plant tissue is present, which is a positive sign of active vegetation.");}
+   else {disadvantages.push("Only a small amount of green plant tissue was detected; the image may show a stressed plant or too much background.");stress+=22;}
+   if(yellowPct>=7){stress+=18;signs.push("Yellowing / chlorosis pattern detected.");advice.push("Check irrigation balance and inspect leaves for nutrient deficiency, sucking-pest damage or early disease symptoms.");disadvantages.push("Yellow areas may indicate nutrient, water or disease-related stress.");}
+   if(brownPct>=5){stress+=22;signs.push("Brown or necrotic-looking areas detected.");advice.push("Inspect the affected margins and undersides of leaves for fungal spots, insect injury or physical damage.");disadvantages.push("Brown/necrotic areas suggest possible tissue damage or disease stress.");}
+   if(darkPct>=10){stress+=8;signs.push("Dark regions detected; some may be shadows or damaged tissue.");advice.push("Retake the image in even daylight with the leaf filling most of the frame.");}
+   if(brightPct>=28){stress+=5;signs.push("Bright/washed-out regions detected.");advice.push("Avoid strong glare and use diffuse daylight for a more reliable scan.");}
+   if(contrast<25){signs.push("Low image contrast detected.");advice.push("Use a closer, sharper photo with the affected leaf clearly visible.");}
+   if(!signs.length)signs.push("No strong yellow/brown stress pattern was detected by this visual screen.");
+   const score=Math.max(20,Math.min(98,Math.round(92-stress-(quality<60?12:0)+(greenPct>35?4:0))));
+   const condition=score>=82?"Looks healthy / low visible stress":score>=65?"Mild visible stress":"Moderate-to-high visible stress";
+   if(score>=80)advice.unshift("Maintain balanced irrigation, field hygiene and regular crop scouting.");
+   else advice.unshift("Monitor the crop closely and compare with another clear image in 24–72 hours.");
+   if(!advantages.length)advantages.push("The image was successfully processed and can be used as a baseline for future comparisons.");
+   if(!disadvantages.length)disadvantages.push("A photo alone cannot confirm the exact crop disease or pest.");
+   plantContents.push(greenPct>=18?"Green vegetation/leaf tissue is visibly present.":"Limited green vegetation was detected in the sampled image.");
+   plantContents.push(yellowPct>=7?"Yellow/chlorotic-looking regions are visible.":"No strong yellowing pattern was detected.");
+   plantContents.push(brownPct>=5?"Brown/necrotic-looking regions are visible.":"No strong brown/necrotic pattern was detected.");
+   plantContents.push(`Visible plant-colour coverage: ${plantPct.toFixed(1)}% of sampled pixels.`);
+   cropCondition.push(`Overall visual condition: ${condition}.`);
+   cropCondition.push(`Plant health estimate: ${score}%.`);
+   cropCondition.push(`Visual stress estimate: ${Math.min(100,stress)}%.`);
+   cropCondition.push(`Image quality estimate: ${quality}%.`);
+   if(yellowPct>=7 && brownPct>=5){diseaseReasons.push("Combined yellowing and brown tissue pattern needs closer field inspection.");diseaseNext.push("Check multiple leaves and both sides of affected leaves.");}
+   else if(brownPct>=5){diseaseReasons.push("Brown/necrotic-looking pattern may be associated with disease, insect injury, age or physical damage.");diseaseNext.push("Compare with a fresh, close-up image of the affected area.");}
+   else if(yellowPct>=7){diseaseReasons.push("Yellowing can have several causes, including nutrient, water, pest or disease stress.");diseaseNext.push("Check soil moisture, leaf undersides and nearby plants.");}
+   else {diseaseReasons.push("No strong disease-like colour pattern was detected by this visual screen.");diseaseNext.push("Continue routine scouting and rescan if symptoms appear.");}
+   diseaseNext.push("Confirm any suspected disease or pest with a qualified agricultural professional before treatment.");
+   // Map visible symptom patterns to the existing pesticide finder. These are candidates, not diagnoses.
+   if(brownPct>=5 || yellowPct>=7){
+     suggestions=pesticides.filter(x=>x.cat==="Fungicide").slice(0,3);
+   }
+   if(greenPct<18 || darkPct>=10){
+     suggestions=suggestions.concat(pesticides.filter(x=>x.cat==="Insecticide").slice(0,2));
+   }
+   suggestions=[...new Map(suggestions.map(x=>[x.name,x])).values()].slice(0,5);
+   if(!suggestions.length)suggestions=pesticides.filter(x=>x.cat==="Biological / Botanical").slice(0,3);
+   const imgBox=$("scanPreview");
+   imgBox.src=url;imgBox.style.display="block";
+   $("scanReport").style.display="block";
+   $("scanCondition").textContent=condition;
+   $("scanSummaryText").textContent=`Visual screen completed for ${file.name}. Detected green ${greenPct.toFixed(1)}%, yellow ${yellowPct.toFixed(1)}%, brown ${brownPct.toFixed(1)}% of sampled pixels.`;
+   $("scanScore").textContent=score;
+   $("healthScore").textContent=score+"%";$("healthBar").style.width=score+"%";
+   $("stressScore").textContent=Math.min(100,stress)+"%";$("stressBar").style.width=Math.min(100,stress)+"%";
+   $("qualityScore").textContent=quality+"%";$("qualityBar").style.width=quality+"%";
+   $("scanFindings").innerHTML=signs.map(x=>`<li>${esc(x)}</li>`).join("");
+   $("scanAdvice").innerHTML=advice.map(x=>`<li>${esc(x)}</li>`).join("");
+   $("scanAdvantages").innerHTML=advantages.map(x=>`<li>${esc(x)}</li>`).join("");
+   $("scanDisadvantages").innerHTML=disadvantages.map(x=>`<li>${esc(x)}</li>`).join("");
+   $("plantContents").innerHTML=plantContents.map(x=>`<li>${esc(x)}</li>`).join("");
+   $("cropConditionGrid").innerHTML=cropCondition.map(x=>`<li>${esc(x)}</li>`).join("");
+   const disease=(brownPct>=5&&yellowPct>=7)?"Possible mixed disease/stress pattern":(brownPct>=5?"Possible leaf damage / disease stress pattern":(yellowPct>=7?"Possible yellowing / nutrient-stress pattern":"No strong disease-like pattern detected"));
+   $("diseaseName").textContent=disease;
+   $("diseaseConfidence").textContent=`Visual-screen confidence: ${Math.max(35,Math.min(90,Math.round(55+Math.abs(yellowPct-brownPct))))}% — screening only`;
+   $("diseaseReasons").innerHTML=diseaseReasons.map(x=>`<li>${esc(x)}</li>`).join("");
+   $("diseaseNext").innerHTML=diseaseNext.map(x=>`<li>${esc(x)}</li>`).join("");
+   $("scanPesticides").innerHTML=suggestions.map(x=>`<div class="card product"><span class="tag">${esc(x.cat)}</span><span class="tag">${esc(x.brand)}</span><h3>${esc(x.name)}</h3><p>${esc(x.note)}</p><p><b>${x.price==null?"Price: verify locally":"Indicative price: ₹"+x.price}</b> · ${esc(x.pack)}</p><div class="recommend">Consider only after confirming the crop and target pest/disease on the product label.</div></div>`).join("");
+   document.querySelector(".score-ring").style.setProperty("--score",(score*3.6)+"deg");
+   state.activities.unshift("AI crop image analysed: "+condition);
+   save();toast("AI crop scan completed");
+   URL.revokeObjectURL(url);
+ };
+ img.onerror=function(){URL.revokeObjectURL(url);toast("Could not read this image. Try JPG or PNG.");};
+ img.src=url;
+}
+function handleImage(file){if(!file||!file.type.startsWith("image/")){toast("Please choose a JPG, PNG or other image file");return}analyzeCropImage(file)}
+$("chooseImage").onclick=e=>{e.stopPropagation();fileInput.click()};
+dz.onclick=e=>{if(e.target!==$("chooseImage"))fileInput.click()};
+fileInput.onchange=()=>handleImage(fileInput.files[0]);
+$("openPesticidesFromScan").onclick=()=>go("pesticides");
+["dragenter","dragover"].forEach(x=>dz.addEventListener(x,e=>{e.preventDefault();dz.classList.add("drag")}));
+["dragleave","drop"].forEach(x=>dz.addEventListener(x,e=>{e.preventDefault();dz.classList.remove("drag")}));
+dz.addEventListener("drop",e=>handleImage(e.dataTransfer.files[0]));
+
+/* Pesticide finder — indicative current market examples */
+const pesticides=[
+/* Expanded educational pesticide catalogue.
+   Prices are demo/indicative values only and must be verified locally.
+   No dosage or application instructions are included. */
+{name:"UPL Saaf",brand:"UPL",cat:"Fungicide",d:["Leaf spot","Powdery mildew","Blight","Fungal diseases"],price:250,pack:"250 g",note:"Carbendazim + Mancozeb"},
+{name:"Nativo 75 WG",brand:"Bayer",cat:"Fungicide",d:["Powdery mildew","Blight","Sheath blight","Fungal diseases"],price:159,pack:"10 g",note:"Tebuconazole + Trifloxystrobin"},
+{name:"Antracol",brand:"Bayer",cat:"Fungicide",d:["Leaf spot","Blight","Downy mildew","Fungal diseases"],price:310,pack:"250 g",note:"Propineb"},
+{name:"Amistar Top",brand:"Syngenta",cat:"Fungicide",d:["Leaf spot","Blight","Powdery mildew","Fungal diseases"],price:520,pack:"250 ml",note:"Azoxystrobin + Difenoconazole"},
+{name:"Ridomil Gold",brand:"Syngenta",cat:"Fungicide",d:["Downy mildew","Late blight","Fungal diseases"],price:590,pack:"250 g",note:"Metalaxyl-M + Mancozeb"},
+{name:"Tilt",brand:"Syngenta",cat:"Fungicide",d:["Rust","Powdery mildew","Leaf spot","Fungal diseases"],price:390,pack:"250 ml",note:"Propiconazole"},
+{name:"Score",brand:"Syngenta",cat:"Fungicide",d:["Leaf spot","Alternaria","Powdery mildew","Fungal diseases"],price:420,pack:"100 ml",note:"Difenoconazole"},
+{name:"Folicur",brand:"Bayer",cat:"Fungicide",d:["Rust","Blight","Powdery mildew","Fungal diseases"],price:445,pack:"250 ml",note:"Tebuconazole"},
+{name:"Dithane M-45",brand:"UPL",cat:"Fungicide",d:["Leaf spot","Blight","Downy mildew","Fungal diseases"],price:285,pack:"500 g",note:"Mancozeb"},
+{name:"Cabrio Top",brand:"BASF",cat:"Fungicide",d:["Downy mildew","Powdery mildew","Leaf spot"],price:680,pack:"250 g",note:"Pyraclostrobin + Metiram"},
+
+{name:"Coragen",brand:"FMC",cat:"Insecticide",d:["Fruit borer","Stem borer","Caterpillars"],price:147,pack:"10 ml",note:"Chlorantraniliprole"},
+{name:"Ampligo",brand:"Syngenta",cat:"Insecticide",d:["Fruit borer","Stem borer","Caterpillars"],price:480,pack:"100 ml",note:"Chlorantraniliprole + Lambda-cyhalothrin"},
+{name:"Proclaim",brand:"Syngenta",cat:"Insecticide",d:["Fruit borer","Caterpillars","Bollworm"],price:465,pack:"100 g",note:"Emamectin benzoate"},
+{name:"Tracer",brand:"Corteva",cat:"Insecticide",d:["Thrips","Fruit borer","Caterpillars"],price:610,pack:"100 ml",note:"Spinosad"},
+{name:"Delegate",brand:"Corteva",cat:"Insecticide",d:["Thrips","Caterpillars","Fruit borer"],price:720,pack:"60 ml",note:"Spinetoram"},
+{name:"Actara",brand:"Syngenta",cat:"Insecticide",d:["Aphids","Whitefly","Jassids","Sucking pests"],price:310,pack:"100 g",note:"Thiamethoxam"},
+{name:"Confidor",brand:"Bayer",cat:"Insecticide",d:["Aphids","Whitefly","Jassids","Sucking pests"],price:340,pack:"100 ml",note:"Imidacloprid"},
+{name:"Movento",brand:"Bayer",cat:"Insecticide",d:["Aphids","Whitefly","Thrips","Sucking pests"],price:820,pack:"100 ml",note:"Spirotetramat"},
+{name:"Benevia",brand:"FMC",cat:"Insecticide",d:["Thrips","Whitefly","Aphids","Caterpillars"],price:760,pack:"100 ml",note:"Cyantraniliprole"},
+{name:"Oberon",brand:"Bayer",cat:"Insecticide",d:["Mites","Whitefly","Sucking pests"],price:690,pack:"100 ml",note:"Spiromesifen"},
+{name:"Minecto",brand:"Syngenta",cat:"Insecticide",d:["Leaf miner","Thrips","Caterpillars"],price:540,pack:"100 ml",note:"Cyantraniliprole + Thiamethoxam"},
+{name:"UPL Lancer Gold",brand:"UPL",cat:"Insecticide",d:["Aphids","Thrips","Sucking pests"],price:379,pack:"250 g",note:"Insecticide"},
+{name:"UPL Shenzi",brand:"UPL",cat:"Insecticide",d:["Caterpillars","Bollworm","Fruit borer"],price:510,pack:"60 ml",note:"Chlorantraniliprole"},
+{name:"UPL Spolit",brand:"UPL",cat:"Insecticide",d:["Fruit borer","Caterpillars"],price:459,pack:"250 g",note:"Emamectin benzoate"},
+
+{name:"Roundup",brand:"Bayer",cat:"Herbicide",d:["Broad weeds","Grass weeds","Weed control"],price:618,pack:"1 L",note:"Glyphosate"},
+{name:"Gramoxone",brand:"Syngenta",cat:"Herbicide",d:["Broad weeds","Grass weeds","Weed control"],price:520,pack:"1 L",note:"Paraquat"},
+{name:"Pendimethalin 30 EC",brand:"Generic",cat:"Herbicide",d:["Annual weeds","Grass weeds","Broad weeds"],price:285,pack:"1 L",note:"Pendimethalin"},
+{name:"Nominee Gold",brand:"BASF",cat:"Herbicide",d:["Rice weeds","Grass weeds","Sedge weeds"],price:610,pack:"100 ml",note:"Bispyribac-sodium"},
+{name:"Almix",brand:"DuPont",cat:"Herbicide",d:["Rice weeds","Broadleaf weeds","Sedge weeds"],price:430,pack:"20 g",note:"Metsulfuron-methyl + Chlorimuron-ethyl"},
+{name:"Topstar",brand:"FMC",cat:"Herbicide",d:["Rice weeds","Sedge weeds","Broadleaf weeds"],price:540,pack:"100 g",note:"Oxadiargyl"},
+{name:"Atrazine 50 WP",brand:"Generic",cat:"Herbicide",d:["Maize weeds","Broad weeds","Grass weeds"],price:260,pack:"500 g",note:"Atrazine"},
+{name:"Sencor",brand:"Bayer",cat:"Herbicide",d:["Broadleaf weeds","Grass weeds"],price:350,pack:"250 g",note:"Metribuzin"},
+{name:"Jhatka",brand:"UPL",cat:"Herbicide",d:["Grass weeds","Weed control"],price:272,pack:"160 g",note:"Clodinafop propargyl"},
+{name:"Dost",brand:"UPL",cat:"Herbicide",d:["Annual weeds","Grass weeds"],price:275,pack:"500 ml",note:"Pendimethalin"},
+{name:"Strider",brand:"UPL",cat:"Herbicide",d:["Rice weeds","Post-emergence weeds"],price:290,pack:"10 ml x 5",note:"Bispyribac sodium"},
+
+{name:"Neem Oil",brand:"Botanical",cat:"Biological / Botanical",d:["Aphids","Whitefly","Thrips","Sucking pests"],price:220,pack:"1 L",note:"Neem-based botanical"},
+{name:"NeemAzal",brand:"E.I.D. Parry",cat:"Biological / Botanical",d:["Aphids","Thrips","Whitefly","Caterpillars"],price:460,pack:"250 ml",note:"Azadirachtin-based botanical"},
+{name:"Bt Bio-insecticide",brand:"Biological",cat:"Biological / Botanical",d:["Caterpillars","Bollworm","Leaf-eating larvae"],price:320,pack:"500 g",note:"Bacillus thuringiensis based"},
+{name:"Trichoderma",brand:"Biological",cat:"Biological / Botanical",d:["Soil-borne fungal diseases","Root rot","Damping-off"],price:180,pack:"1 kg",note:"Beneficial fungal biocontrol"},
+{name:"Pseudomonas fluorescens",brand:"Biological",cat:"Biological / Botanical",d:["Bacterial diseases","Root rot","Soil-borne diseases"],price:190,pack:"1 kg",note:"Microbial biocontrol"},
+{name:"Beauveria bassiana",brand:"Biological",cat:"Biological / Botanical",d:["Whitefly","Aphids","Thrips","Insect pests"],price:240,pack:"1 kg",note:"Entomopathogenic fungus"},
+{name:"Metarhizium anisopliae",brand:"Biological",cat:"Biological / Botanical",d:["Insect pests","White grubs","Caterpillars"],price:250,pack:"1 kg",note:"Entomopathogenic fungus"},
+
+{name:"Copper Oxychloride",brand:"Generic",cat:"Fungicide",d:["Bacterial leaf spot","Blight","Leaf spot","Fungal diseases"],price:290,pack:"500 g",note:"Copper-based fungicide"},
+{name:"Sulphur 80 WDG",brand:"Generic",cat:"Fungicide",d:["Powdery mildew","Mites","Fungal diseases"],price:240,pack:"500 g",note:"Sulphur"},
+{name:"Hexaconazole",brand:"Generic",cat:"Fungicide",d:["Sheath blight","Powdery mildew","Leaf spot"],price:330,pack:"250 ml",note:"Hexaconazole"},
+{name:"Carbendazim 50 WP",brand:"Generic",cat:"Fungicide",d:["Root rot","Wilt","Leaf spot","Fungal diseases"],price:210,pack:"500 g",note:"Carbendazim"},
+{name:"Mancozeb 75 WP",brand:"Generic",cat:"Fungicide",d:["Blight","Leaf spot","Downy mildew"],price:230,pack:"500 g",note:"Mancozeb"},
+
+{name:"Imidacloprid 17.8 SL",brand:"Generic",cat:"Insecticide",d:["Aphids","Whitefly","Jassids","Sucking pests"],price:210,pack:"100 ml",note:"Imidacloprid"},
+{name:"Thiamethoxam 25 WG",brand:"Generic",cat:"Insecticide",d:["Aphids","Whitefly","Jassids","Thrips"],price:230,pack:"100 g",note:"Thiamethoxam"},
+{name:"Emamectin Benzoate 5 SG",brand:"Generic",cat:"Insecticide",d:["Fruit borer","Bollworm","Caterpillars"],price:180,pack:"100 g",note:"Emamectin benzoate"},
+{name:"Spinosad 45 SC",brand:"Generic",cat:"Insecticide",d:["Thrips","Fruit borer","Caterpillars"],price:360,pack:"100 ml",note:"Spinosad"},
+{name:"Lambda-cyhalothrin 5 EC",brand:"Generic",cat:"Insecticide",d:["Aphids","Thrips","Caterpillars","Insect pests"],price:190,pack:"250 ml",note:"Lambda-cyhalothrin"},
+
+{name:"Nativo 75 WG - 100 g",brand:"Bayer",cat:"Fungicide",d:["Powdery mildew","Blight","Sheath blight"],price:1120,pack:"100 g",note:"Tebuconazole + Trifloxystrobin"},
+{name:"Saafilizer",brand:"UPL",cat:"Fungicide",d:["Leaf spot","Blight","Fungal diseases"],price:460,pack:"500 g",note:"Carbendazim + Mancozeb"},
+
+/* Additional generic active-ingredient reference entries. No dosage/application instructions. */
+{name:"Azoxystrobin — reference",brand:"Generic reference",cat:"Fungicide",d:["Leaf spot","Blight","Rust","Fungal diseases"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Difenoconazole — reference",brand:"Generic reference",cat:"Fungicide",d:["Leaf spot","Alternaria","Powdery mildew","Fungal diseases"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Tebuconazole — reference",brand:"Generic reference",cat:"Fungicide",d:["Rust","Blight","Powdery mildew","Fungal diseases"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Hexaconazole — reference",brand:"Generic reference",cat:"Fungicide",d:["Sheath blight","Powdery mildew","Leaf spot"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Metsulfuron + Mancozeb — reference",brand:"Generic reference",cat:"Fungicide",d:["Fungal diseases","Leaf spot"],price:null,pack:"Reference",note:"Reference entry; verify exact formulation and approved crop use."},
+{name:"Copper oxychloride — reference",brand:"Generic reference",cat:"Fungicide",d:["Leaf spot","Blight","Bacterial diseases"],price:null,pack:"Reference",note:"Reference entry; verify exact formulation and approved crop use."},
+{name:"Sulfur — reference",brand:"Generic reference",cat:"Fungicide",d:["Powdery mildew","Rust"],price:null,pack:"Reference",note:"Reference entry; verify exact formulation and approved crop use."},
+{name:"Tricyclazole — reference",brand:"Generic reference",cat:"Fungicide",d:["Blast"],price:null,pack:"Reference",note:"Reference entry; verify current registration and crop label."},
+{name:"Carbendazim — reference",brand:"Generic reference",cat:"Fungicide",d:["Leaf spot","Blight","Fungal diseases"],price:null,pack:"Reference",note:"Reference entry; verify current registration and crop label."},
+{name:"Mancozeb — reference",brand:"Generic reference",cat:"Fungicide",d:["Leaf spot","Blight","Downy mildew"],price:null,pack:"Reference",note:"Reference entry; verify current registration and crop label."},
+{name:"Chlorantraniliprole — reference",brand:"Generic reference",cat:"Insecticide",d:["Stem borer","Fruit borer","Caterpillars"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Emamectin benzoate — reference",brand:"Generic reference",cat:"Insecticide",d:["Fruit borer","Caterpillars","Shoot borer"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Fipronil — reference",brand:"Generic reference",cat:"Insecticide",d:["Stem borer","Thrips","Termites"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Imidacloprid — reference",brand:"Generic reference",cat:"Insecticide",d:["Aphids","Whitefly","Jassids"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Thiamethoxam — reference",brand:"Generic reference",cat:"Insecticide",d:["Aphids","Whitefly","Jassids","Thrips"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Acetamiprid — reference",brand:"Generic reference",cat:"Insecticide",d:["Aphids","Whitefly","Jassids"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Spinosad — reference",brand:"Generic reference",cat:"Insecticide",d:["Thrips","Caterpillars","Fruit borer"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Indoxacarb — reference",brand:"Generic reference",cat:"Insecticide",d:["Fruit borer","Caterpillars"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Buprofezin — reference",brand:"Generic reference",cat:"Insecticide",d:["Whitefly","Planthoppers","Leafhoppers"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Pymetrozine — reference",brand:"Generic reference",cat:"Insecticide",d:["Planthoppers","Aphids","Whitefly"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Lambda-cyhalothrin — reference",brand:"Generic reference",cat:"Insecticide",d:["Caterpillars","Fruit borer","Insect pests"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Pendimethalin — reference",brand:"Generic reference",cat:"Herbicide",d:["Annual grasses","Broadleaf weeds","Weeds"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Bispyribac-sodium — reference",brand:"Generic reference",cat:"Herbicide",d:["Grassy weeds","Broadleaf weeds","Weeds"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Pretilachlor — reference",brand:"Generic reference",cat:"Herbicide",d:["Weeds","Annual grasses","Sedges"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Butachlor — reference",brand:"Generic reference",cat:"Herbicide",d:["Annual grasses","Sedges","Weeds"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"Metsulfuron-methyl — reference",brand:"Generic reference",cat:"Herbicide",d:["Broadleaf weeds","Weeds"],price:null,pack:"Reference",note:"Active ingredient reference; verify registered formulation and crop label."},
+{name:"2,4-D — reference",brand:"Generic reference",cat:"Herbicide",d:["Broadleaf weeds","Weeds"],price:null,pack:"Reference",note:"Reference entry; verify current registration and crop label."},
+{name:"Glyphosate — reference",brand:"Generic reference",cat:"Herbicide",d:["Weeds","Mixed weeds"],price:null,pack:"Reference",note:"Reference entry; verify current registration and permitted use."},
+{name:"Glufosinate — reference",brand:"Generic reference",cat:"Herbicide",d:["Weeds","Mixed weeds"],price:null,pack:"Reference",note:"Reference entry; verify current registration and permitted use."},
+{name:"Atrazine — reference",brand:"Generic reference",cat:"Herbicide",d:["Grassy weeds","Broadleaf weeds"],price:null,pack:"Reference",note:"Reference entry; verify current registration and crop label."},
+{name:"Oxyfluorfen — reference",brand:"Generic reference",cat:"Herbicide",d:["Broadleaf weeds","Annual grasses"],price:null,pack:"Reference",note:"Reference entry; verify current registration and crop label."},
+{name:"Neem oil / botanical reference",brand:"Botanical reference",cat:"Biological / Botanical",d:["Aphids","Whitefly","Thrips","General pest monitoring"],price:null,pack:"Reference",note:"Botanical reference; verify approved product label and crop use."},
+{name:"Azadirachtin — reference",brand:"Botanical reference",cat:"Biological / Botanical",d:["Aphids","Whitefly","Caterpillars","Thrips"],price:null,pack:"Reference",note:"Botanical active-ingredient reference; verify approved product label."},
+{name:"Beauveria bassiana — reference",brand:"Biological reference",cat:"Biological / Botanical",d:["Whitefly","Aphids","Thrips"],price:null,pack:"Reference",note:"Microbial reference; verify approved product label and storage requirements."},
+{name:"Metarhizium anisopliae — reference",brand:"Biological reference",cat:"Biological / Botanical",d:["Soil insects","Termites","Selected insect pests"],price:null,pack:"Reference",note:"Microbial reference; verify approved product label and crop use."},
+{name:"Trichoderma viride — reference",brand:"Biological reference",cat:"Biological / Botanical",d:["Soil-borne fungal diseases","Root-zone disease management"],price:null,pack:"Reference",note:"Biological reference; verify approved product label and crop use."},
+{name:"Trichoderma harzianum — reference",brand:"Biological reference",cat:"Biological / Botanical",d:["Soil-borne fungal diseases","Root-zone disease management"],price:null,pack:"Reference",note:"Biological reference; verify approved product label and crop use."},
+{name:"Pseudomonas fluorescens — reference",brand:"Biological reference",cat:"Biological / Botanical",d:["Plant disease management","Root-zone health"],price:null,pack:"Reference",note:"Biological reference; verify approved product label and crop use."},
+{name:"Bacillus subtilis — reference",brand:"Biological reference",cat:"Biological / Botanical",d:["Fungal diseases","Plant disease management"],price:null,pack:"Reference",note:"Biological reference; verify approved product label and crop use."},
+{name:"Bacillus thuringiensis — reference",brand:"Biological reference",cat:"Biological / Botanical",d:["Caterpillars","Lepidopteran larvae"],price:null,pack:"Reference",note:"Biological reference; verify approved product label and crop use."},
+{name:"Fish-oil soap / botanical reference",brand:"Botanical reference",cat:"Biological / Botanical",d:["Soft-bodied insects","Aphids","Whitefly"],price:null,pack:"Reference",note:"Botanical/soap reference; verify approved product label and crop use."},
+{name:"Potassium salts of fatty acids — reference",brand:"Botanical reference",cat:"Biological / Botanical",d:["Aphids","Whitefly","Soft-bodied insects"],price:null,pack:"Reference",note:"Reference entry; verify approved product label and crop use."},
+{name:"Biocontrol nematode reference",brand:"Biological reference",cat:"Biological / Botanical",d:["Selected soil pests","Root-zone pests"],price:null,pack:"Reference",note:"Biological-control reference; verify locally approved product and target."},
+/* Larger reference catalogue: active ingredients only, no dosage/application instructions. */
+{name:"Acephate — reference",brand:"Generic reference",cat:"Insecticide",d:["Aphids","Thrips","Sucking pests"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Acetamiprid — reference",brand:"Generic reference",cat:"Insecticide",d:["Aphids","Whitefly","Jassids","Sucking pests"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Abamectin — reference",brand:"Generic reference",cat:"Insecticide",d:["Mites","Thrips","Leaf miner"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Buprofezin — reference",brand:"Generic reference",cat:"Insecticide",d:["Whitefly","Planthoppers","Leafhoppers"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Chlorfenapyr — reference",brand:"Generic reference",cat:"Insecticide",d:["Thrips","Mites","Caterpillars"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Dinotefuran — reference",brand:"Generic reference",cat:"Insecticide",d:["Aphids","Whitefly","Jassids"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Diafenthiuron — reference",brand:"Generic reference",cat:"Insecticide",d:["Whitefly","Mites","Sucking pests"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Fipronil — reference",brand:"Generic reference",cat:"Insecticide",d:["Stem borer","Thrips","Termites"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Flubendiamide — reference",brand:"Generic reference",cat:"Insecticide",d:["Fruit borer","Caterpillars","Bollworm"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Indoxacarb — reference",brand:"Generic reference",cat:"Insecticide",d:["Fruit borer","Caterpillars","Bollworm"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Pyriproxyfen — reference",brand:"Generic reference",cat:"Insecticide",d:["Whitefly","Scale insects","Sucking pests"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Pymetrozine — reference",brand:"Generic reference",cat:"Insecticide",d:["Planthoppers","Aphids","Whitefly"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Spinetoram — reference",brand:"Generic reference",cat:"Insecticide",d:["Thrips","Caterpillars","Fruit borer"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Spirotetramat — reference",brand:"Generic reference",cat:"Insecticide",d:["Aphids","Whitefly","Scale insects"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Thiacloprid — reference",brand:"Generic reference",cat:"Insecticide",d:["Aphids","Whitefly","Jassids"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Chlorpyrifos — reference",brand:"Generic reference",cat:"Insecticide",d:["Termites","Stem borer","Soil pests"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Dimethoate — reference",brand:"Generic reference",cat:"Insecticide",d:["Aphids","Thrips","Sucking pests"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Profenofos — reference",brand:"Generic reference",cat:"Insecticide",d:["Thrips","Caterpillars","Bollworm"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Quinalphos — reference",brand:"Generic reference",cat:"Insecticide",d:["Caterpillars","Bollworm","Sucking pests"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Novaluron — reference",brand:"Generic reference",cat:"Insecticide",d:["Caterpillars","Leaf-eating larvae"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Matrine — reference",brand:"Generic reference",cat:"Biological / Botanical",d:["Aphids","Thrips","Sucking pests"],price:null,pack:"Reference",note:"Botanical reference; verify current registration and crop label"},
+{name:"Karanja oil — reference",brand:"Botanical reference",cat:"Biological / Botanical",d:["Aphids","Whitefly","Thrips"],price:null,pack:"Reference",note:"Botanical reference; verify current registration and crop label"},
+{name:"Bacillus amyloliquefaciens — reference",brand:"Biological reference",cat:"Biological / Botanical",d:["Fungal diseases","Plant disease management"],price:null,pack:"Reference",note:"Microbial reference; verify current registration and crop label"},
+{name:"Bacillus subtilis — reference",brand:"Biological reference",cat:"Biological / Botanical",d:["Fungal diseases","Plant disease management"],price:null,pack:"Reference",note:"Microbial reference; verify current registration and crop label"},
+{name:"Gliocladium — reference",brand:"Biological reference",cat:"Biological / Botanical",d:["Soil-borne fungal diseases","Root-zone disease management"],price:null,pack:"Reference",note:"Biological reference; verify current registration and crop label"},
+{name:"Kasugamycin — reference",brand:"Generic reference",cat:"Fungicide",d:["Bacterial diseases","Leaf spot","Plant disease management"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Metsiram — reference",brand:"Generic reference",cat:"Fungicide",d:["Leaf spot","Blight","Fungal diseases"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Fluopyram — reference",brand:"Generic reference",cat:"Fungicide",d:["Powdery mildew","Leaf spot","Fungal diseases"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Fluxapyroxad — reference",brand:"Generic reference",cat:"Fungicide",d:["Rust","Leaf spot","Fungal diseases"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Kresoxim-methyl — reference",brand:"Generic reference",cat:"Fungicide",d:["Powdery mildew","Rust","Leaf spot"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Myclobutanil — reference",brand:"Generic reference",cat:"Fungicide",d:["Powdery mildew","Rust","Fungal diseases"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Penconazole — reference",brand:"Generic reference",cat:"Fungicide",d:["Powdery mildew","Rust"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Propineb — reference",brand:"Generic reference",cat:"Fungicide",d:["Leaf spot","Blight","Downy mildew"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Thiophanate-methyl — reference",brand:"Generic reference",cat:"Fungicide",d:["Leaf spot","Blight","Wilt"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Trifloxystrobin — reference",brand:"Generic reference",cat:"Fungicide",d:["Powdery mildew","Rust","Leaf spot"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Tricyclazole — reference",brand:"Generic reference",cat:"Fungicide",d:["Blast","Leaf disease"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Valifenalate — reference",brand:"Generic reference",cat:"Fungicide",d:["Downy mildew","Late blight"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Pretilachlor — reference",brand:"Generic reference",cat:"Herbicide",d:["Rice weeds","Annual grasses","Sedges"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Butachlor — reference",brand:"Generic reference",cat:"Herbicide",d:["Rice weeds","Annual grasses","Sedges"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Clodinafop-propargyl — reference",brand:"Generic reference",cat:"Herbicide",d:["Grass weeds","Annual grasses"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Fenoxaprop-P-ethyl — reference",brand:"Generic reference",cat:"Herbicide",d:["Grass weeds","Annual grasses"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Imazethapyr — reference",brand:"Generic reference",cat:"Herbicide",d:["Grass weeds","Broadleaf weeds"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Imazapyr — reference",brand:"Generic reference",cat:"Herbicide",d:["Mixed weeds","Broadleaf weeds"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Oxadiargyl — reference",brand:"Generic reference",cat:"Herbicide",d:["Rice weeds","Broadleaf weeds"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Oxyfluorfen — reference",brand:"Generic reference",cat:"Herbicide",d:["Broadleaf weeds","Annual grasses"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Sulfosulfuron — reference",brand:"Generic reference",cat:"Herbicide",d:["Grass weeds","Broadleaf weeds"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Metsulfuron-methyl — reference",brand:"Generic reference",cat:"Herbicide",d:["Broadleaf weeds","Weeds"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"2,4-D — reference",brand:"Generic reference",cat:"Herbicide",d:["Broadleaf weeds","Weeds"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+{name:"Glufosinate — reference",brand:"Generic reference",cat:"Herbicide",d:["Weeds","Mixed weeds"],price:null,pack:"Reference",note:"Active ingredient reference; verify current registration and crop label"},
+
+];
+function fillDisease(){let vals=[...new Set(pesticides.flatMap(x=>x.d))].sort();$("pestDisease").innerHTML='<option value="all">All diseases / pests</option>'+vals.map(x=>`<option>${esc(x)}</option>`).join("")}
+function renderPests(){
+ let q=$("pestSearch").value.toLowerCase(),cat=$("pestCategory").value,d=$("pestDisease").value;
+ let list=pesticides.filter(x=>(cat==="all"||x.cat===cat)&&(d==="all"||x.d.includes(d))&&(q===""||(x.name+" "+x.brand+" "+x.note+" "+x.d.join(" ")).toLowerCase().includes(q)));
+ let cats=["Insecticide","Fungicide","Herbicide","Biological / Botanical"];
+ $("pestStats").innerHTML=cats.map(c=>`<div class="pest-stat"><small>${c}</small><b>${pesticides.filter(x=>x.cat===c).length}</b><small>catalogue items</small></div>`).join("");
+ $("pestCount").textContent=list.length+" products";
+ $("pesticideResults").innerHTML=list.map(x=>`<div class="card product">
+   <span class="tag">${esc(x.cat)}</span><span class="tag">${esc(x.brand)}</span>
+   <h3>${esc(x.name)}</h3><p>${esc(x.note)}</p>
+   <p><b>${x.price==null?"Price: verify locally":"Indicative price: ₹"+Number(x.price).toLocaleString("en-IN")}</b> · ${esc(x.pack)}</p>
+   <div class="recommend">Listed for: ${esc(x.d.join(", "))}.</div>
+   <p class="catalog-note">Educational catalogue entry. Verify current registration, label, crop approval and local price before any real-world use.</p>
+ </div>`).join("")||'<div class="card">No matching product found. Try another category or disease/pest.</div>';
+}
+$("pestSearchBtn").onclick=renderPests;$("pestSearch").oninput=renderPests;$("pestCategory").onchange=renderPests;$("pestDisease").onchange=renderPests;
+
+fillDisease();renderPests();renderAll();
+setTimeout(()=>{$("splash").style.display="none";$("app").style.display="block"},1900);
+
+/* FULL LANGUAGE FIX */
+const LANG_KEY="agriShieldLanguage";
+const T={
+en:{
+"Dashboard":"Dashboard","My Crops":"My Crops","AI Crop Scan":"AI Crop Scan","Irrigation":"Irrigation","Alerts":"Alerts","Pesticides":"Pesticides","Payment / Subscription":"Payment / Subscription","Settings":"Settings",
+"Smart Farming":"Smart Farming","Active Crops":"Active Crops","Soil Moisture":"Soil Moisture","Temperature":"Temperature","Current Plan":"Current Plan","Working Options":"Working Options","AI Recommendation":"AI Recommendation","Quick Actions":"Quick Actions","Scan Crop":"Scan Crop","Start Irrigation":"Start Irrigation","Schedule":"Schedule","View Alerts":"View Alerts","Farm Overview":"Farm Overview","Recent Activity":"Recent Activity",
+"Add Crop":"Add Crop","Crop Name":"Crop Name","Field / Area":"Field / Area","Status":"Status","Action":"Action","Remove":"Remove","Active":"Active",
+"Choose Image":"Choose Image","Drop image here":"Drop image here","or click to choose an image":"or click to choose an image","Crop condition":"Crop condition","Analysis ready.":"Analysis ready.","Plant health":"Plant health","Stress level":"Stress level","Image quality":"Image quality","What the image contains":"What the image contains","Crop condition advice":"Crop condition advice","Advantages / positive signs":"Advantages / positive signs","Disadvantages / risk signs":"Disadvantages / risk signs","Suggested pesticides / treatments":"Suggested pesticides / treatments","Open Pesticide Finder":"Open Pesticide Finder","Important:":"Important:",
+"Pump Control":"Pump Control","Turn Pump ON":"Turn Pump ON","Turn Pump OFF":"Turn Pump OFF","Auto Mode: ON":"Auto Mode: ON","Auto Mode: OFF":"Auto Mode: OFF","Moisture Threshold":"Moisture Threshold","Irrigation Schedule":"Irrigation Schedule","Date":"Date","Time":"Time","Duration (minutes)":"Duration (minutes)","Add Schedule":"Add Schedule","No schedules yet.":"No schedules yet.","Clear Alerts":"Clear Alerts","No active alerts.":"No active alerts.",
+"Pesticide Finder":"Pesticide Finder","Search pesticide or disease":"Search pesticide or disease","All Categories":"All Categories","All Diseases / Pests":"All Diseases / Pests","Search":"Search","Insecticide":"Insecticide","Fungicide":"Fungicide","Herbicide":"Herbicide","Biological":"Biological","Biological / Botanical":"Biological / Botanical",
+"Starter":"Starter","Grow":"Grow","Premium":"Premium","Select Plan":"Select Plan","Selected Plan":"Selected Plan","UPI":"UPI","Debit Card":"Debit Card","Credit Card":"Credit Card","Validate & Activate Plan":"Validate & Activate Plan","Plan & Payment Validation":"Plan & Payment Validation","Payment Method":"Payment Method","Validation Status":"Validation Status","Validated":"Validated","Pending":"Pending","Manage Plan & Payment":"Manage Plan & Payment",
+"Farmer Name":"Farmer Name","Farm Location":"Farm Location","Preferred Crop":"Preferred Crop","Save Settings":"Save Settings","Reset Demo Data":"Reset Demo Data",
+"System ready":"System ready","Ready":"Ready","Enabled":"Enabled","Available in demo":"Available in demo","records ready":"records ready","active":"active"
+},
+te:{
+"Dashboard":"డ్యాష్‌బోర్డ్","My Crops":"నా పంటలు","AI Crop Scan":"AI పంట స్కాన్","Irrigation":"నీటిపారుదల","Alerts":"హెచ్చరికలు","Pesticides":"పురుగుమందులు","Payment / Subscription":"చెల్లింపు / సబ్‌స్క్రిప్షన్","Settings":"సెట్టింగులు",
+"Smart Farming":"స్మార్ట్ వ్యవసాయం","Active Crops":"క్రియాశీల పంటలు","Soil Moisture":"మట్టి తేమ","Temperature":"ఉష్ణోగ్రత","Current Plan":"ప్రస్తుత ప్లాన్","Working Options":"పనిచేస్తున్న ఎంపికలు","AI Recommendation":"AI సిఫార్సు","Quick Actions":"త్వరిత చర్యలు","Scan Crop":"పంట స్కాన్","Start Irrigation":"నీటిపారుదల ప్రారంభించండి","Schedule":"షెడ్యూల్","View Alerts":"హెచ్చరికలు","Farm Overview":"పొలం అవలోకనం","Recent Activity":"ఇటీవలి కార్యకలాపాలు",
+"Add Crop":"పంటను జోడించండి","Crop Name":"పంట పేరు","Field / Area":"పొలం / ప్రాంతం","Status":"స్థితి","Action":"చర్య","Remove":"తొలగించండి","Active":"క్రియాశీలం",
+"Choose Image":"చిత్రాన్ని ఎంచుకోండి","Drop image here":"చిత్రాన్ని ఇక్కడ డ్రాప్ చేయండి","or click to choose an image":"లేదా చిత్రాన్ని ఎంచుకోవడానికి క్లిక్ చేయండి","Crop condition":"పంట పరిస్థితి","Analysis ready.":"విశ్లేషణ సిద్ధంగా ఉంది.","Plant health":"పంట ఆరోగ్యం","Stress level":"ఒత్తిడి స్థాయి","Image quality":"చిత్ర నాణ్యత","What the image contains":"చిత్రంలో ఉన్న అంశాలు","Crop condition advice":"పంట పరిస్థితి సలహా","Advantages / positive signs":"ప్రయోజనాలు / అనుకూల లక్షణాలు","Disadvantages / risk signs":"ప్రతికూలతలు / ప్రమాద లక్షణాలు","Suggested pesticides / treatments":"సూచించిన పురుగుమందులు / చికిత్సలు","Open Pesticide Finder":"పురుగుమందుల శోధన తెరవండి","Important:":"ముఖ్యమైనది:",
+"Pump Control":"పంప్ నియంత్రణ","Turn Pump ON":"పంప్ ఆన్ చేయండి","Turn Pump OFF":"పంప్ ఆఫ్ చేయండి","Auto Mode: ON":"ఆటో మోడ్: ఆన్","Auto Mode: OFF":"ఆటో మోడ్: ఆఫ్","Moisture Threshold":"తేమ పరిమితి","Irrigation Schedule":"నీటిపారుదల షెడ్యూల్","Date":"తేదీ","Time":"సమయం","Duration (minutes)":"వ్యవధి (నిమిషాలు)","Add Schedule":"షెడ్యూల్ జోడించండి","No schedules yet.":"ఇంకా షెడ్యూల్‌లు లేవు.","Clear Alerts":"హెచ్చరికలను తొలగించండి","No active alerts.":"క్రియాశీల హెచ్చరికలు లేవు.",
+"Pesticide Finder":"పురుగుమందుల శోధన","Search pesticide or disease":"పురుగుమందు లేదా వ్యాధిని శోధించండి","All Categories":"అన్ని వర్గాలు","All Diseases / Pests":"అన్ని వ్యాధులు / పురుగులు","Search":"శోధించండి","Insecticide":"కీటకనాశిని","Fungicide":"శిలీంధ్రనాశిని","Herbicide":"కలుపు నివారణ","Biological":"జీవ సంబంధిత","Biological / Botanical":"జీవ / వృక్ష ఆధారిత",
+"Starter":"స్టార్టర్","Grow":"గ్రో","Premium":"ప్రీమియం","Select Plan":"ప్లాన్ ఎంచుకోండి","Selected Plan":"ఎంచుకున్న ప్లాన్","UPI":"UPI","Debit Card":"డెబిట్ కార్డ్","Credit Card":"క్రెడిట్ కార్డ్","Validate & Activate Plan":"ధృవీకరించి ప్లాన్ యాక్టివేట్ చేయండి","Plan & Payment Validation":"ప్లాన్ & చెల్లింపు ధృవీకరణ","Payment Method":"చెల్లింపు విధానం","Validation Status":"ధృవీకరణ స్థితి","Validated":"ధృవీకరించబడింది","Pending":"పెండింగ్","Manage Plan & Payment":"ప్లాన్ & చెల్లింపును నిర్వహించండి",
+"Farmer Name":"రైతు పేరు","Farm Location":"పొలం స్థానం","Preferred Crop":"ఇష్టమైన పంట","Save Settings":"సెట్టింగులను సేవ్ చేయండి","Reset Demo Data":"డెమో డేటాను రీసెట్ చేయండి","System ready":"సిస్టమ్ సిద్ధంగా ఉంది","Ready":"సిద్ధంగా ఉంది","Enabled":"ప్రారంభించబడింది","Available in demo":"డెమోలో అందుబాటులో ఉంది","records ready":"రికార్డులు సిద్ధంగా ఉన్నాయి","active":"క్రియాశీలం"
+},
+hi:{
+"Dashboard":"डैशबोर्ड","My Crops":"मेरी फसलें","AI Crop Scan":"AI फसल स्कैन","Irrigation":"सिंचाई","Alerts":"अलर्ट","Pesticides":"कीटनाशक","Payment / Subscription":"भुगतान / सदस्यता","Settings":"सेटिंग्स",
+"Smart Farming":"स्मार्ट खेती","Active Crops":"सक्रिय फसलें","Soil Moisture":"मिट्टी की नमी","Temperature":"तापमान","Current Plan":"वर्तमान प्लान","Working Options":"कार्यशील विकल्प","AI Recommendation":"AI सुझाव","Quick Actions":"त्वरित कार्रवाइयाँ","Scan Crop":"फसल स्कैन","Start Irrigation":"सिंचाई शुरू करें","Schedule":"शेड्यूल","View Alerts":"अलर्ट देखें","Farm Overview":"खेत का अवलोकन","Recent Activity":"हाल की गतिविधि",
+"Add Crop":"फसल जोड़ें","Crop Name":"फसल का नाम","Field / Area":"खेत / क्षेत्र","Status":"स्थिति","Action":"कार्रवाई","Remove":"हटाएँ","Active":"सक्रिय",
+"Choose Image":"चित्र चुनें","Drop image here":"चित्र यहाँ ड्रॉप करें","or click to choose an image":"या चित्र चुनने के लिए क्लिक करें","Crop condition":"फसल की स्थिति","Analysis ready.":"विश्लेषण तैयार है","Plant health":"पौधे का स्वास्थ्य","Stress level":"तनाव स्तर","Image quality":"चित्र गुणवत्ता","What the image contains":"चित्र में क्या है","Crop condition advice":"फसल स्थिति सलाह","Advantages / positive signs":"लाभ / सकारात्मक संकेत","Disadvantages / risk signs":"नुकसान / जोखिम संकेत","Suggested pesticides / treatments":"सुझाए गए कीटनाशक / उपचार","Open Pesticide Finder":"कीटनाशक खोज खोलें","Important:":"महत्वपूर्ण:",
+"Pump Control":"पंप नियंत्रण","Turn Pump ON":"पंप चालू करें","Turn Pump OFF":"पंप बंद करें","Auto Mode: ON":"ऑटो मोड: चालू","Auto Mode: OFF":"ऑटो मोड: बंद","Moisture Threshold":"नमी सीमा","Irrigation Schedule":"सिंचाई शेड्यूल","Date":"तारीख","Time":"समय","Duration (minutes)":"अवधि (मिनट)","Add Schedule":"शेड्यूल जोड़ें","No schedules yet.":"अभी कोई शेड्यूल नहीं है","Clear Alerts":"अलर्ट साफ़ करें","No active alerts.":"कोई सक्रिय अलर्ट नहीं है",
+"Pesticide Finder":"कीटनाशक खोज","Search pesticide or disease":"कीटनाशक या रोग खोजें","All Categories":"सभी श्रेणियाँ","All Diseases / Pests":"सभी रोग / कीट","Search":"खोजें","Insecticide":"कीटनाशक","Fungicide":"फफूंदनाशक","Herbicide":"खरपतवारनाशी","Biological":"जैविक","Biological / Botanical":"जैविक / वनस्पति आधारित",
+"Starter":"स्टार्टर","Grow":"ग्रो","Premium":"प्रीमियम","Select Plan":"प्लान चुनें","Selected Plan":"चयनित प्लान","UPI":"UPI","Debit Card":"डेबिट कार्ड","Credit Card":"क्रेडिट कार्ड","Validate & Activate Plan":"सत्यापित करें और प्लान सक्रिय करें","Plan & Payment Validation":"प्लान और भुगतान सत्यापन","Payment Method":"भुगतान विधि","Validation Status":"सत्यापन स्थिति","Validated":"सत्यापित","Pending":"लंबित","Manage Plan & Payment":"प्लान और भुगतान प्रबंधित करें",
+"Farmer Name":"किसान का नाम","Farm Location":"खेत का स्थान","Preferred Crop":"पसंदीदा फसल","Save Settings":"सेटिंग्स सहेजें","Reset Demo Data":"डेमो डेटा रीसेट करें","System ready":"सिस्टम तैयार है","Ready":"तैयार","Enabled":"सक्रिय","Available in demo":"डेमो में उपलब्ध","records ready":"रिकॉर्ड तैयार हैं","active":"सक्रिय"
+}};
+function lang(){return localStorage.getItem(LANG_KEY)||"en"}
+function tr(s){return (T[lang()]&&T[lang()][s])||s}
+function translateAll(){
+ document.documentElement.lang=lang();
+ document.querySelectorAll("h1,h2,h3,h4,h5,h6,p,label,button,span,small,th,.muted,.tag,.pill").forEach(el=>{
+   if(el.closest(".scene3d")||el.closest(".splash")||el.children.length) return;
+   let k=el.dataset.i18nKey||el.textContent.trim();
+   if(T.en[k]){el.dataset.i18nKey=k;el.textContent=tr(k)}
+ });
+ document.querySelectorAll("input[placeholder]").forEach(el=>{
+   const k=el.dataset.i18nPlaceholder;if(k)el.placeholder=tr(k);
+ });
+ document.querySelectorAll("select option").forEach(el=>{
+   const k=el.dataset.i18nKey||el.textContent.trim();
+   if(T.en[k]){el.dataset.i18nKey=k;el.textContent=tr(k)}
+ });
+ const s=document.getElementById("language");if(s)s.value=lang();
+}
+function setLanguage(v){localStorage.setItem(LANG_KEY,T[v]?v:"en");translateAll();if(typeof renderAll==="function")renderAll();const active=document.querySelector(".page.active");if(active){go(active.id)}setTimeout(translateAll,0)}
+
+/* Extended language support for the full navigation and common controls. */
+Object.assign(T,{
+ ta:{"Dashboard":"டாஷ்போர்டு","My Crops":"என் பயிர்கள்","AI Crop Scan":"AI பயிர் ஸ்கேன்","Irrigation":"நீர்ப்பாசனம்","Alerts":"எச்சரிக்கைகள்","Pesticides":"பூச்சிக்கொல்லிகள்","Settings":"அமைப்புகள்","Smart Farming":"ஸ்மார்ட் விவசாயம்","Active Crops":"செயலில் உள்ள பயிர்கள்","Soil Moisture":"மண் ஈரப்பதம்","Temperature":"வெப்பநிலை","Current Plan":"தற்போதைய திட்டம்","Working Options":"செயல்பாட்டு விருப்பங்கள்","Add Crop":"பயிரைச் சேர்க்கவும்","Remove":"அகற்று","Save Settings":"அமைப்புகளைச் சேமிக்கவும்","Reset Demo Data":"டெமோ தரவை மீட்டமைக்கவும்","Pesticide Finder":"பூச்சிக்கொல்லி தேடல்","Search":"தேடு","All categories":"அனைத்து வகைகள்","All diseases / pests":"அனைத்து நோய்கள் / பூச்சிகள்","Smart Irrigation":"ஸ்மார்ட் நீர்ப்பாசனம்","Pump Control":"பம்ப் கட்டுப்பாடு","Schedule Irrigation":"நீர்ப்பாசன அட்டவணை"},
+ kn:{"Dashboard":"ಡ್ಯಾಶ್‌ಬೋರ್ಡ್","My Crops":"ನನ್ನ ಬೆಳೆಗಳು","AI Crop Scan":"AI ಬೆಳೆ ಸ್ಕ್ಯಾನ್","Irrigation":"ನೀರಾವರಿ","Alerts":"ಎಚ್ಚರಿಕೆಗಳು","Pesticides":"ಕೀಟನಾಶಕಗಳು","Settings":"ಸೆಟ್ಟಿಂಗ್‌ಗಳು","Smart Farming":"ಸ್ಮಾರ್ಟ್ ಕೃಷಿ","Active Crops":"ಸಕ್ರಿಯ ಬೆಳೆಗಳು","Soil Moisture":"ಮಣ್ಣಿನ ತೇವಾಂಶ","Temperature":"ತಾಪಮಾನ","Current Plan":"ಪ್ರಸ್ತುತ ಯೋಜನೆ","Working Options":"ಕಾರ್ಯ ಆಯ್ಕೆಗಳು","Add Crop":"ಬೆಳೆ ಸೇರಿಸಿ","Remove":"ತೆಗೆದುಹಾಕಿ","Save Settings":"ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಉಳಿಸಿ","Reset Demo Data":"ಡೆಮೋ ಡೇಟಾ ಮರುಹೊಂದಿಸಿ","Pesticide Finder":"ಕೀಟನಾಶಕ ಹುಡುಕಾಟ","Search":"ಹುಡುಕಿ","All categories":"ಎಲ್ಲಾ ವರ್ಗಗಳು","All diseases / pests":"ಎಲ್ಲಾ ರೋಗಗಳು / ಕೀಟಗಳು","Smart Irrigation":"ಸ್ಮಾರ್ಟ್ ನೀರಾವರಿ","Pump Control":"ಪಂಪ್ ನಿಯಂತ್ರಣ","Schedule Irrigation":"ನೀರಾವರಿ ವೇಳಾಪಟ್ಟಿ"},
+ ml:{"Dashboard":"ഡാഷ്ബോർഡ്","My Crops":"എന്റെ വിളകൾ","AI Crop Scan":"AI വിള സ്കാൻ","Irrigation":"ജലസേചനം","Alerts":"അറിയിപ്പുകൾ","Pesticides":"കീടനാശിനികൾ","Settings":"ക്രമീകരണങ്ങൾ","Smart Farming":"സ്മാർട്ട് കൃഷി","Active Crops":"സജീവ വിളകൾ","Soil Moisture":"മണ്ണിലെ ഈർപ്പം","Temperature":"താപനില","Current Plan":"നിലവിലെ പ്ലാൻ","Working Options":"പ്രവർത്തന ഓപ്ഷനുകൾ","Add Crop":"വിള ചേർക്കുക","Remove":"നീക്കം ചെയ്യുക","Save Settings":"ക്രമീകരണങ്ങൾ സംരക്ഷിക്കുക","Reset Demo Data":"ഡെമോ ഡാറ്റ പുനഃസജ്ജമാക്കുക","Pesticide Finder":"കീടനാശിനി കണ്ടെത്തൽ","Search":"തിരയുക","All categories":"എല്ലാ വിഭാഗങ്ങളും","All diseases / pests":"എല്ലാ രോഗങ്ങൾ / കീടങ്ങൾ","Smart Irrigation":"സ്മാർട്ട് ജലസേചനം","Pump Control":"പമ്പ് നിയന്ത്രണം","Schedule Irrigation":"ജലസേചന ഷെഡ്യൂൾ"},
+ mr:{"Dashboard":"डॅशबोर्ड","My Crops":"माझी पिके","AI Crop Scan":"AI पीक स्कॅन","Irrigation":"सिंचन","Alerts":"सूचना","Pesticides":"कीटकनाशके","Settings":"सेटिंग्ज","Smart Farming":"स्मार्ट शेती","Active Crops":"सक्रिय पिके","Soil Moisture":"मातीतील ओलावा","Temperature":"तापमान","Current Plan":"सध्याचा प्लॅन","Working Options":"कार्य पर्याय","Add Crop":"पीक जोडा","Remove":"काढा","Save Settings":"सेटिंग्ज जतन करा","Reset Demo Data":"डेमो डेटा रीसेट करा","Pesticide Finder":"कीटकनाशक शोध","Search":"शोधा","All categories":"सर्व श्रेणी","All diseases / pests":"सर्व रोग / किडी","Smart Irrigation":"स्मार्ट सिंचन","Pump Control":"पंप नियंत्रण","Schedule Irrigation":"सिंचन वेळापत्रक"},
+ bn:{"Dashboard":"ড্যাশবোর্ড","My Crops":"আমার ফসল","AI Crop Scan":"AI ফসল স্ক্যান","Irrigation":"সেচ","Alerts":"সতর্কতা","Pesticides":"কীটনাশক","Settings":"সেটিংস","Smart Farming":"স্মার্ট কৃষি","Active Crops":"সক্রিয় ফসল","Soil Moisture":"মাটির আর্দ্রতা","Temperature":"তাপমাত্রা","Current Plan":"বর্তমান প্ল্যান","Working Options":"কাজের বিকল্প","Add Crop":"ফসল যোগ করুন","Remove":"সরান","Save Settings":"সেটিংস সংরক্ষণ করুন","Reset Demo Data":"ডেমো ডেটা রিসেট করুন","Pesticide Finder":"কীটনাশক খোঁজ","Search":"খুঁজুন","All categories":"সব বিভাগ","All diseases / pests":"সব রোগ / পোকা","Smart Irrigation":"স্মার্ট সেচ","Pump Control":"পাম্প নিয়ন্ত্রণ","Schedule Irrigation":"সেচের সময়সূচি"}
+});
+const ORIGINAL_TRANSLATE_ALL=translateAll;
+translateAll=function(){
+  document.documentElement.lang=lang();
+  document.querySelectorAll("h1,h2,h3,h4,h5,h6,p,label,button,span,small,th,.muted,.tag,.pill").forEach(el=>{
+    if(el.closest(".scene3d")||el.closest(".splash")) return;
+    const key=el.dataset.i18nKey||el.textContent.trim();
+    if(T.en[key]){el.dataset.i18nKey=key;el.textContent=tr(key)}
+  });
+  document.querySelectorAll("select option").forEach(el=>{
+    const key=el.dataset.i18nKey||el.textContent.trim();
+    if(T.en[key]){el.dataset.i18nKey=key;el.textContent=tr(key)}
+  });
+  document.querySelectorAll("input[placeholder]").forEach(el=>{
+    const key=el.dataset.i18nPlaceholder;
+    if(key&&T.en[key])el.placeholder=tr(key);
+  });
+  const s=document.getElementById("language");if(s)s.value=lang();
+};
+
+const ls=document.getElementById("language");
+if(ls){ls.classList.add("lang-select");ls.value=lang();ls.onchange=e=>setLanguage(e.target.value)}
+/* Convert all known English UI text to translation keys once, including nav labels. */
+document.querySelectorAll("h1,h2,h3,h4,h5,h6,p,label,button,span,small,th,.muted,.tag,.pill").forEach(el=>{
+ if(!el.children.length){let k=el.textContent.trim();if(T.en[k])el.dataset.i18nKey=k}
+});
+translateAll();
+
+
+
+/* ===== FULL WEBSITE LANGUAGE ENGINE (EN / TE / HI) ===== */
+(function(){
+  const EXTRA = {
+    en:{
+      "Smart Farming":"Smart Farming","Detect • Protect • Grow":"Detect • Protect • Grow","Preparing your smart farm...":"Preparing your smart farm...",
+      "Smart farming at a glance 🌾":"Smart farming at a glance 🌾","Monitor crops, irrigation, AI scans, alerts and crop-protection products in one place.":"Monitor crops, irrigation, AI scans, alerts and crop-protection products in one place.",
+      "Ready":"Ready","OFF":"OFF","ON":"ON","Active":"Active","Not required":"Not required",
+      "Crop records:":"Crop records:","AI Crop Scan:":"AI Crop Scan:","Smart Irrigation:":"Smart Irrigation:","Pesticide Finder:":"Pesticide Finder:","Plan validation:":"Plan validation:",
+      "Soil moisture is below the demo threshold. Inspect the field and consider controlled irrigation.":"Soil moisture is below the demo threshold. Inspect the field and consider controlled irrigation.",
+      "Open Irrigation":"Open Irrigation","Find Pesticide":"Find Pesticide","Farm Settings":"Farm Settings",
+      "Crop name":"Crop name","Field / area":"Field / area","e.g. Tomato":"e.g. Tomato","e.g. Field A":"e.g. Field A",
+      "AI Crop Scan 🔬":"AI Crop Scan 🔬","Upload crop image":"Upload crop image","Drag & drop an image here, or click this same area to select an image.":"Drag & drop an image here, or click this same area to select an image.",
+      "Suggestions are based on visible symptom patterns only. Confirm the crop and disease before applying any product.":"Suggestions are based on visible symptom patterns only. Confirm the crop and disease before applying any product.",
+      "This is an on-device visual screening aid, not a laboratory diagnosis. Results can be affected by lighting, camera quality, leaf age, background and image angle. Follow the product label and local agricultural guidance before treatment.":"This is an on-device visual screening aid, not a laboratory diagnosis. Results can be affected by lighting, camera quality, leaf age, background and image angle. Follow the product label and local agricultural guidance before treatment.",
+      "Smart Irrigation":"Smart Irrigation","Status:":"Status:","Schedule Irrigation":"Schedule Irrigation",
+      "Select a pesticide category and crop disease/pest to find matching products and indicative market prices.":"Select a pesticide category and crop disease/pest to find matching products and indicative market prices.",
+      "Search disease, pest or product...":"Search disease, pest or product...","All categories":"All categories","All diseases / pests":"All diseases / pests",
+      "Prices are indicative catalogue/demo values for September 2026 and can vary by pack size, seller and location. This page is an educational reference, not a diagnosis or prescription. Verify the current product label, registration status, approved crop use and local agricultural guidance before any real-world decision.":"Prices are indicative catalogue/demo values for September 2026 and can vary by pack size, seller and location. This page is an educational reference, not a diagnosis or prescription. Verify the current product label, registration status, approved crop use and local agricultural guidance before any real-world decision.",
+      "Payment / Subscription 💳":"Payment / Subscription 💳","Choose Starter, Grow or Premium. Grow and Premium require payment validation.":"Choose Starter, Grow or Premium. Grow and Premium require payment validation.",
+      "Dashboard":"Dashboard","Basic crop records":"Basic crop records","Basic alerts":"Basic alerts","Basic irrigation":"Basic irrigation",
+      "More crop records":"More crop records","AI crop scan":"AI crop scan","Smart irrigation scheduling":"Smart irrigation scheduling","Enhanced recommendations":"Enhanced recommendations",
+      "Full feature access":"Full feature access","Unlimited crop records":"Unlimited crop records","Advanced irrigation":"Advanced irrigation","Priority insights":"Priority insights",
+      "Payment Details & Validation":"Payment Details & Validation","Demo validation only — this offline HTML does not process real money.":"Demo validation only — this offline HTML does not process real money.",
+      "Selected plan:":"Selected plan:","UPI ID":"UPI ID","Card Number":"Card Number","Name on Card":"Name on Card","Expiry":"Expiry","CVV":"CVV",
+      "name@upi":"name@upi","Name on card":"Name on card","Validate & Activate Plan":"Validate & Activate Plan",
+      "Plan validated and activated in demo":"Plan validated and activated in demo","Settings":"Settings","Current plan:":"Current plan:",
+      "Payment method:":"Payment method:","Validation status:":"Validation status:","Active":"Active",
+      "Visual screen completed for":"Visual screen completed for","Detected green":"Detected green","yellow":"yellow","brown":"brown","of sampled pixels.":"of sampled pixels.",
+      "Looks healthy / low visible stress":"Looks healthy / low visible stress","Mild visible stress":"Mild visible stress","Moderate-to-high visible stress":"Moderate-to-high visible stress",
+      "Visible green plant tissue is present, which is a positive sign of active vegetation.":"Visible green plant tissue is present, which is a positive sign of active vegetation.",
+      "Only a small amount of green plant tissue was detected; the image may show a stressed plant or too much background.":"Only a small amount of green plant tissue was detected; the image may show a stressed plant or too much background.",
+      "Yellowing / chlorosis pattern detected.":"Yellowing / chlorosis pattern detected.","Brown or necrotic-looking areas detected.":"Brown or necrotic-looking areas detected.",
+      "Dark regions detected; some may be shadows or damaged tissue.":"Dark regions detected; some may be shadows or damaged tissue.",
+      "Bright/washed-out regions detected.":"Bright/washed-out regions detected.","Low image contrast detected.":"Low image contrast detected.",
+      "No strong yellow/brown stress pattern was detected by this visual screen.":"No strong yellow/brown stress pattern was detected by this visual screen.",
+      "Maintain balanced irrigation, field hygiene and regular crop scouting.":"Maintain balanced irrigation, field hygiene and regular crop scouting.",
+      "Monitor the crop closely and compare with another clear image in 24–72 hours.":"Monitor the crop closely and compare with another clear image in 24–72 hours.",
+      "A photo alone cannot confirm the exact crop disease or pest.":"A photo alone cannot confirm the exact crop disease or pest.",
+      "The image was successfully processed and can be used as a baseline for future comparisons.":"The image was successfully processed and can be used as a baseline for future comparisons.",
+      "Check irrigation balance and inspect leaves for nutrient deficiency, sucking-pest damage or early disease symptoms.":"Check irrigation balance and inspect leaves for nutrient deficiency, sucking-pest damage or early disease symptoms.",
+      "Inspect the affected margins and undersides of leaves for fungal spots, insect injury or physical damage.":"Inspect the affected margins and undersides of leaves for fungal spots, insect injury or physical damage.",
+      "Retake the image in even daylight with the leaf filling most of the frame.":"Retake the image in even daylight with the leaf filling most of the frame.",
+      "Avoid strong glare and use diffuse daylight for a more reliable scan.":"Avoid strong glare and use diffuse daylight for a more reliable scan.",
+      "Use a closer, sharper photo with the affected leaf clearly visible.":"Use a closer, sharper photo with the affected leaf clearly visible.",
+      "Consider only after confirming the crop and target pest/disease on the product label.":"Consider only after confirming the crop and target pest/disease on the product label.",
+      "Indicative price:":"Indicative price:","No active alerts.":"No active alerts.","No schedules yet.":"No schedules yet.",
+      "System ready":"System ready","Available in demo":"Available in demo","Enabled":"Enabled","records ready":"records ready","active":"active",
+      "Crop removed":"Crop removed","Schedule added":"Schedule added","Alerts cleared":"Alerts cleared","Settings saved":"Settings saved","Demo data reset":"Demo data reset",
+      "Please choose a JPG, PNG or other image file":"Please choose a JPG, PNG or other image file","Could not read this image. Try JPG or PNG.":"Could not read this image. Try JPG or PNG.",
+      "AI crop scan completed":"AI crop scan completed","Auto mode":"Auto mode","selected":"selected","plan activated":"plan activated",
+      "Enter a valid UPI ID":"Enter a valid UPI ID","Enter valid card details":"Enter valid card details","Reset all demo data?":"Reset all demo data?"
+    },
+    te:{
+      "Smart Farming":"స్మార్ట్ వ్యవసాయం","Detect • Protect • Grow":"గుర్తించండి • రక్షించండి • అభివృద్ధి చేయండి","Preparing your smart farm...":"మీ స్మార్ట్ ఫార్మ్‌ను సిద్ధం చేస్తున్నాం...",
+      "Smart farming at a glance 🌾":"స్మార్ట్ వ్యవసాయం ఒక చూపులో 🌾","Monitor crops, irrigation, AI scans, alerts and crop-protection products in one place.":"పంటలు, నీటిపారుదల, AI స్కాన్‌లు, హెచ్చరికలు మరియు పంట రక్షణ ఉత్పత్తులను ఒకే చోట పర్యవేక్షించండి.",
+      "Ready":"సిద్ధంగా ఉంది","OFF":"ఆఫ్","ON":"ఆన్","Active":"క్రియాశీలం","Not required":"అవసరం లేదు",
+      "Crop records:":"పంట రికార్డులు:","AI Crop Scan:":"AI పంట స్కాన్:","Smart Irrigation:":"స్మార్ట్ నీటిపారుదల:","Pesticide Finder:":"పురుగుమందుల శోధన:","Plan validation:":"ప్లాన్ ధృవీకరణ:",
+      "Soil moisture is below the demo threshold. Inspect the field and consider controlled irrigation.":"మట్టి తేమ డెమో పరిమితి కంటే తక్కువగా ఉంది. పొలాన్ని పరిశీలించి నియంత్రిత నీటిపారుదలను పరిగణించండి.",
+      "Open Irrigation":"నీటిపారుదల తెరవండి","Find Pesticide":"పురుగుమందును కనుగొనండి","Farm Settings":"పొలం సెట్టింగులు",
+      "Crop name":"పంట పేరు","Field / area":"పొలం / ప్రాంతం","e.g. Tomato":"ఉదా. టమాటా","e.g. Field A":"ఉదా. ఫీల్డ్ A",
+      "AI Crop Scan 🔬":"AI పంట స్కాన్ 🔬","Upload crop image":"పంట చిత్రాన్ని అప్‌లోడ్ చేయండి","Drag & drop an image here, or click this same area to select an image.":"చిత్రాన్ని ఇక్కడ డ్రాగ్ చేసి డ్రాప్ చేయండి లేదా ఇదే ప్రాంతంపై క్లిక్ చేసి చిత్రాన్ని ఎంచుకోండి.",
+      "Suggestions are based on visible symptom patterns only. Confirm the crop and disease before applying any product.":"సూచనలు కనిపించే లక్షణాల నమూనాలపై మాత్రమే ఆధారపడి ఉంటాయి. ఏ ఉత్పత్తినైనా ఉపయోగించే ముందు పంట మరియు వ్యాధిని నిర్ధారించండి.",
+      "This is an on-device visual screening aid, not a laboratory diagnosis. Results can be affected by lighting, camera quality, leaf age, background and image angle. Follow the product label and local agricultural guidance before treatment.":"ఇది పరికరంలో పనిచేసే దృశ్య స్క్రీనింగ్ సహాయం మాత్రమే, ప్రయోగశాల నిర్ధారణ కాదు. వెలుతురు, కెమెరా నాణ్యత, ఆకు వయస్సు, నేపథ్యం మరియు చిత్ర కోణం ఫలితాలను ప్రభావితం చేయవచ్చు. చికిత్సకు ముందు ఉత్పత్తి లేబుల్ మరియు స్థానిక వ్యవసాయ మార్గదర్శకాలను అనుసరించండి.",
+      "Smart Irrigation":"స్మార్ట్ నీటిపారుదల","Status:":"స్థితి:","Schedule Irrigation":"నీటిపారుదల షెడ్యూల్",
+      "Select a pesticide category and crop disease/pest to find matching products and indicative market prices.":"సరిపోలే ఉత్పత్తులు మరియు సూచిక మార్కెట్ ధరలను కనుగొనడానికి పురుగుమందు వర్గం మరియు పంట వ్యాధి/పురుగును ఎంచుకోండి.",
+      "Search disease, pest or product...":"వ్యాధి, పురుగు లేదా ఉత్పత్తిని శోధించండి...","All categories":"అన్ని వర్గాలు","All diseases / pests":"అన్ని వ్యాధులు / పురుగులు",
+      "Prices are indicative catalogue/demo values for September 2026 and can vary by pack size, seller and location. This page is an educational reference, not a diagnosis or prescription. Verify the current product label, registration status, approved crop use and local agricultural guidance before any real-world decision.":"ధరలు సెప్టెంబర్ 2026లో పరిశీలించిన సూచిక ఆన్‌లైన్ మార్కెట్ ధరలు మాత్రమే. ప్యాక్ పరిమాణం, విక్రేత, ప్రాంతం మరియు ఆఫర్లను బట్టి మారవచ్చు. ఎల్లప్పుడూ ఉత్పత్తి లేబుల్, అనుమతించబడిన పంట వినియోగం, PPE మరియు స్థానిక వ్యవసాయ మార్గదర్శకాలను అనుసరించండి. ఇది సమాచారం కోసం మాత్రమే, నిర్ధారణ లేదా ప్రిస్క్రిప్షన్ కాదు.",
+      "Payment / Subscription 💳":"చెల్లింపు / సబ్‌స్క్రిప్షన్ 💳","Choose Starter, Grow or Premium. Grow and Premium require payment validation.":"Starter, Grow లేదా Premium ఎంచుకోండి. Grow మరియు Premiumకు చెల్లింపు ధృవీకరణ అవసరం.",
+      "Dashboard":"డ్యాష్‌బోర్డ్","Basic crop records":"ప్రాథమిక పంట రికార్డులు","Basic alerts":"ప్రాథమిక హెచ్చరికలు","Basic irrigation":"ప్రాథమిక నీటిపారుదల",
+      "More crop records":"మరిన్ని పంట రికార్డులు","AI crop scan":"AI పంట స్కాన్","Smart irrigation scheduling":"స్మార్ట్ నీటిపారుదల షెడ్యూలింగ్","Enhanced recommendations":"మెరుగైన సిఫార్సులు",
+      "Full feature access":"పూర్తి ఫీచర్ యాక్సెస్","Unlimited crop records":"అపరిమిత పంట రికార్డులు","Advanced irrigation":"అధునాతన నీటిపారుదల","Priority insights":"ప్రాధాన్య సూచనలు",
+      "Payment Details & Validation":"చెల్లింపు వివరాలు & ధృవీకరణ","Demo validation only — this offline HTML does not process real money.":"డెమో ధృవీకరణ మాత్రమే — ఈ ఆఫ్‌లైన్ HTML నిజమైన డబ్బును ప్రాసెస్ చేయదు.",
+      "Selected plan:":"ఎంచుకున్న ప్లాన్:","UPI ID":"UPI ID","Card Number":"కార్డ్ నంబర్","Name on Card":"కార్డ్‌పై పేరు","Expiry":"గడువు","CVV":"CVV",
+      "name@upi":"name@upi","Name on card":"కార్డ్‌పై పేరు","Validate & Activate Plan":"ధృవీకరించి ప్లాన్ యాక్టివేట్ చేయండి",
+      "Plan validated and activated in demo":"డెమోలో ప్లాన్ ధృవీకరించబడి యాక్టివేట్ చేయబడింది","Settings":"సెట్టింగులు","Current plan:":"ప్రస్తుత ప్లాన్:",
+      "Payment method:":"చెల్లింపు విధానం:","Validation status:":"ధృవీకరణ స్థితి:",
+      "Visual screen completed for":"దృశ్య స్క్రీనింగ్ పూర్తయింది:","Detected green":"గుర్తించిన ఆకుపచ్చ","yellow":"పసుపు","brown":"గోధుమ","of sampled pixels.":"శాంపిల్ చేసిన పిక్సెళ్లలో.",
+      "Looks healthy / low visible stress":"ఆరోగ్యంగా కనిపిస్తోంది / తక్కువ ఒత్తిడి","Mild visible stress":"స్వల్పంగా కనిపించే ఒత్తిడి","Moderate-to-high visible stress":"మధ్యస్థం నుండి అధికంగా కనిపించే ఒత్తిడి",
+      "Visible green plant tissue is present, which is a positive sign of active vegetation.":"ఆకుపచ్చ మొక్క కణజాలం కనిపిస్తోంది, ఇది చురుకైన వృక్ష పెరుగుదలకు అనుకూల సంకేతం.",
+      "Only a small amount of green plant tissue was detected; the image may show a stressed plant or too much background.":"ఆకుపచ్చ మొక్క కణజాలం తక్కువగా గుర్తించబడింది; చిత్రం ఒత్తిడిలో ఉన్న మొక్కను లేదా ఎక్కువ నేపథ్యాన్ని చూపవచ్చు.",
+      "Yellowing / chlorosis pattern detected.":"ఆకులు పసుపు రంగులోకి మారడం / క్లోరోసిస్ నమూనా గుర్తించబడింది.","Brown or necrotic-looking areas detected.":"గోధుమ లేదా కణజాల నష్టం కనిపించే ప్రాంతాలు గుర్తించబడ్డాయి.",
+      "Dark regions detected; some may be shadows or damaged tissue.":"చీకటి ప్రాంతాలు గుర్తించబడ్డాయి; కొన్ని నీడలు లేదా దెబ్బతిన్న కణజాలం కావచ్చు.",
+      "Bright/washed-out regions detected.":"చాలా ప్రకాశవంతమైన / వెలిసిన ప్రాంతాలు గుర్తించబడ్డాయి.","Low image contrast detected.":"చిత్ర కాంట్రాస్ట్ తక్కువగా ఉంది.",
+      "No strong yellow/brown stress pattern was detected by this visual screen.":"ఈ దృశ్య స్క్రీన్‌లో బలమైన పసుపు/గోధుమ ఒత్తిడి నమూనా గుర్తించబడలేదు.",
+      "Maintain balanced irrigation, field hygiene and regular crop scouting.":"సమతుల్య నీటిపారుదల, పొల పరిశుభ్రత మరియు క్రమం తప్పని పంట పరిశీలన కొనసాగించండి.",
+      "Monitor the crop closely and compare with another clear image in 24–72 hours.":"పంటను దగ్గరగా పర్యవేక్షించి 24–72 గంటల్లో మరో స్పష్టమైన చిత్రంతో పోల్చండి.",
+      "A photo alone cannot confirm the exact crop disease or pest.":"ఒక ఫోటోతోనే ఖచ్చితమైన పంట వ్యాధి లేదా పురుగును నిర్ధారించలేము.",
+      "The image was successfully processed and can be used as a baseline for future comparisons.":"చిత్రం విజయవంతంగా ప్రాసెస్ చేయబడింది; భవిష్యత్ పోలికలకు ఇది ప్రాథమిక ఆధారంగా ఉపయోగపడుతుంది.",
+      "Check irrigation balance and inspect leaves for nutrient deficiency, sucking-pest damage or early disease symptoms.":"నీటిపారుదల సమతుల్యతను తనిఖీ చేసి, పోషక లోపం, రసం పీల్చే పురుగుల నష్టం లేదా ప్రారంభ వ్యాధి లక్షణాల కోసం ఆకులను పరిశీలించండి.",
+      "Inspect the affected margins and undersides of leaves for fungal spots, insect injury or physical damage.":"ప్రభావిత అంచులు మరియు ఆకుల దిగువ భాగాలను శిలీంధ్ర మచ్చలు, పురుగు నష్టం లేదా భౌతిక నష్టం కోసం పరిశీలించండి.",
+      "Retake the image in even daylight with the leaf filling most of the frame.":"సమానమైన పగటి వెలుతురులో, ఆకు ఎక్కువ భాగం ఫ్రేమ్‌ను నింపేలా మరో చిత్రం తీయండి.",
+      "Avoid strong glare and use diffuse daylight for a more reliable scan.":"బలమైన మెరుపును నివారించి, మరింత విశ్వసనీయమైన స్కాన్ కోసం మృదువైన పగటి వెలుతురును ఉపయోగించండి.",
+      "Use a closer, sharper photo with the affected leaf clearly visible.":"ప్రభావిత ఆకు స్పష్టంగా కనిపించేలా దగ్గరగా, పదునైన ఫోటోను ఉపయోగించండి.",
+      "Consider only after confirming the crop and target pest/disease on the product label.":"ఉత్పత్తి లేబుల్‌లో పంట మరియు లక్ష్య పురుగు/వ్యాధిని నిర్ధారించిన తర్వాత మాత్రమే పరిగణించండి.",
+      "Indicative price:":"సూచిక ధర:","No active alerts.":"క్రియాశీల హెచ్చరికలు లేవు.","No schedules yet.":"ఇంకా షెడ్యూల్‌లు లేవు.",
+      "System ready":"సిస్టమ్ సిద్ధంగా ఉంది","Available in demo":"డెమోలో అందుబాటులో ఉంది","Enabled":"ప్రారంభించబడింది","records ready":"రికార్డులు సిద్ధంగా ఉన్నాయి","active":"క్రియాశీలం",
+      "Crop removed":"పంట తొలగించబడింది","Schedule added":"షెడ్యూల్ జోడించబడింది","Alerts cleared":"హెచ్చరికలు తొలగించబడ్డాయి","Settings saved":"సెట్టింగులు సేవ్ చేయబడ్డాయి","Demo data reset":"డెమో డేటా రీసెట్ చేయబడింది",
+      "Please choose a JPG, PNG or other image file":"JPG, PNG లేదా ఇతర చిత్ర ఫైల్‌ను ఎంచుకోండి","Could not read this image. Try JPG or PNG.":"ఈ చిత్రాన్ని చదవలేకపోయాము. JPG లేదా PNG ప్రయత్నించండి.",
+      "AI crop scan completed":"AI పంట స్కాన్ పూర్తయింది","Auto mode":"ఆటో మోడ్","selected":"ఎంచుకోబడింది","plan activated":"ప్లాన్ యాక్టివేట్ చేయబడింది",
+      "Enter a valid UPI ID":"చెల్లుబాటు అయ్యే UPI ID నమోదు చేయండి","Enter valid card details":"చెల్లుబాటు అయ్యే కార్డ్ వివరాలను నమోదు చేయండి","Reset all demo data?":"అన్ని డెమో డేటాను రీసెట్ చేయాలా?"
+    },
+    hi:{
+      "Smart Farming":"स्मार्ट खेती","Detect • Protect • Grow":"पहचानें • सुरक्षित रखें • बढ़ाएँ","Preparing your smart farm...":"आपके स्मार्ट फार्म को तैयार किया जा रहा है...",
+      "Smart farming at a glance 🌾":"स्मार्ट खेती एक नज़र में 🌾","Monitor crops, irrigation, AI scans, alerts and crop-protection products in one place.":"फसल, सिंचाई, AI स्कैन, अलर्ट और फसल-सुरक्षा उत्पादों को एक ही जगह पर देखें।",
+      "Ready":"तैयार","OFF":"बंद","ON":"चालू","Active":"सक्रिय","Not required":"आवश्यक नहीं",
+      "Crop records:":"फसल रिकॉर्ड:","AI Crop Scan:":"AI फसल स्कैन:","Smart Irrigation:":"स्मार्ट सिंचाई:","Pesticide Finder:":"कीटनाशक खोज:","Plan validation:":"प्लान सत्यापन:",
+      "Soil moisture is below the demo threshold. Inspect the field and consider controlled irrigation.":"मिट्टी की नमी डेमो सीमा से कम है। खेत की जाँच करें और नियंत्रित सिंचाई पर विचार करें।",
+      "Open Irrigation":"सिंचाई खोलें","Find Pesticide":"कीटनाशक खोजें","Farm Settings":"खेत की सेटिंग्स",
+      "Crop name":"फसल का नाम","Field / area":"खेत / क्षेत्र","e.g. Tomato":"उदा. टमाटर","e.g. Field A":"उदा. खेत A",
+      "AI Crop Scan 🔬":"AI फसल स्कैन 🔬","Upload crop image":"फसल की तस्वीर अपलोड करें","Drag & drop an image here, or click this same area to select an image.":"चित्र को यहाँ ड्रैग और ड्रॉप करें या इसी क्षेत्र पर क्लिक करके चित्र चुनें।",
+      "Suggestions are based on visible symptom patterns only. Confirm the crop and disease before applying any product.":"सुझाव केवल दिखाई देने वाले लक्षणों पर आधारित हैं। किसी उत्पाद का उपयोग करने से पहले फसल और रोग की पुष्टि करें।",
+      "This is an on-device visual screening aid, not a laboratory diagnosis. Results can be affected by lighting, camera quality, leaf age, background and image angle. Follow the product label and local agricultural guidance before treatment.":"यह डिवाइस पर चलने वाली दृश्य स्क्रीनिंग सहायता है, प्रयोगशाला निदान नहीं। रोशनी, कैमरा गुणवत्ता, पत्ते की उम्र, पृष्ठभूमि और चित्र का कोण परिणामों को प्रभावित कर सकते हैं। उपचार से पहले उत्पाद लेबल और स्थानीय कृषि मार्गदर्शन का पालन करें।",
+      "Smart Irrigation":"स्मार्ट सिंचाई","Status:":"स्थिति:","Schedule Irrigation":"सिंचाई शेड्यूल",
+      "Select a pesticide category and crop disease/pest to find matching products and indicative market prices.":"मेल खाते उत्पाद और अनुमानित बाजार कीमतें खोजने के लिए कीटनाशक श्रेणी और फसल रोग/कीट चुनें।",
+      "Search disease, pest or product...":"रोग, कीट या उत्पाद खोजें...","All categories":"सभी श्रेणियाँ","All diseases / pests":"सभी रोग / कीट",
+      "Prices are indicative catalogue/demo values for September 2026 and can vary by pack size, seller and location. This page is an educational reference, not a diagnosis or prescription. Verify the current product label, registration status, approved crop use and local agricultural guidance before any real-world decision.":"कीमतें सितंबर 2026 में जाँची गई अनुमानित ऑनलाइन-बाजार कीमतें हैं और पैक आकार, विक्रेता, स्थान और ऑफर के अनुसार बदल सकती हैं। हमेशा उत्पाद लेबल, स्वीकृत फसल उपयोग, PPE और स्थानीय कृषि मार्गदर्शन का पालन करें। यह उपकरण जानकारी के लिए है, निदान या प्रिस्क्रिप्शन के लिए नहीं।",
+      "Payment / Subscription 💳":"भुगतान / सदस्यता 💳","Choose Starter, Grow or Premium. Grow and Premium require payment validation.":"Starter, Grow या Premium चुनें। Grow और Premium के लिए भुगतान सत्यापन आवश्यक है।",
+      "Dashboard":"डैशबोर्ड","Basic crop records":"बुनियादी फसल रिकॉर्ड","Basic alerts":"बुनियादी अलर्ट","Basic irrigation":"बुनियादी सिंचाई",
+      "More crop records":"अधिक फसल रिकॉर्ड","AI crop scan":"AI फसल स्कैन","Smart irrigation scheduling":"स्मार्ट सिंचाई शेड्यूलिंग","Enhanced recommendations":"बेहतर सुझाव",
+      "Full feature access":"सभी सुविधाओं का एक्सेस","Unlimited crop records":"असीमित फसल रिकॉर्ड","Advanced irrigation":"उन्नत सिंचाई","Priority insights":"प्राथमिक जानकारी",
+      "Payment Details & Validation":"भुगतान विवरण और सत्यापन","Demo validation only — this offline HTML does not process real money.":"केवल डेमो सत्यापन — यह ऑफलाइन HTML वास्तविक पैसे का लेनदेन नहीं करता।",
+      "Selected plan:":"चयनित प्लान:","UPI ID":"UPI ID","Card Number":"कार्ड नंबर","Name on Card":"कार्ड पर नाम","Expiry":"समाप्ति","CVV":"CVV",
+      "name@upi":"name@upi","Name on card":"कार्ड पर नाम","Validate & Activate Plan":"सत्यापित करें और प्लान सक्रिय करें",
+      "Plan validated and activated in demo":"डेमो में प्लान सत्यापित और सक्रिय किया गया","Settings":"सेटिंग्स","Current plan:":"वर्तमान प्लान:",
+      "Payment method:":"भुगतान विधि:","Validation status:":"सत्यापन स्थिति:",
+      "Visual screen completed for":"दृश्य स्क्रीनिंग पूरी हुई:","Detected green":"पहचाना गया हरा","yellow":"पीला","brown":"भूरा","of sampled pixels.":"सैंपल किए गए पिक्सेल में।",
+      "Looks healthy / low visible stress":"स्वस्थ दिखता है / कम दिखाई देने वाला तनाव","Mild visible stress":"हल्का दिखाई देने वाला तनाव","Moderate-to-high visible stress":"मध्यम से अधिक दिखाई देने वाला तनाव",
+      "Visible green plant tissue is present, which is a positive sign of active vegetation.":"हरे पौधे का ऊतक दिखाई दे रहा है, जो सक्रिय वनस्पति का सकारात्मक संकेत है।",
+      "Only a small amount of green plant tissue was detected; the image may show a stressed plant or too much background.":"हरे पौधे का ऊतक कम मात्रा में पाया गया; चित्र तनावग्रस्त पौधे या अधिक पृष्ठभूमि दिखा सकता है।",
+      "Yellowing / chlorosis pattern detected.":"पीलापन / क्लोरोसिस पैटर्न पाया गया।","Brown or necrotic-looking areas detected.":"भूरे या क्षतिग्रस्त ऊतक जैसे क्षेत्र पाए गए।",
+      "Dark regions detected; some may be shadows or damaged tissue.":"गहरे क्षेत्र पाए गए; इनमें कुछ छाया या क्षतिग्रस्त ऊतक हो सकते हैं।",
+      "Bright/washed-out regions detected.":"बहुत चमकीले / फीके क्षेत्र पाए गए।","Low image contrast detected.":"चित्र का कंट्रास्ट कम पाया गया।",
+      "No strong yellow/brown stress pattern was detected by this visual screen.":"इस दृश्य स्क्रीन में मजबूत पीले/भूरे तनाव का पैटर्न नहीं पाया गया।",
+      "Maintain balanced irrigation, field hygiene and regular crop scouting.":"संतुलित सिंचाई, खेत की स्वच्छता और नियमित फसल निरीक्षण बनाए रखें।",
+      "Monitor the crop closely and compare with another clear image in 24–72 hours.":"फसल की बारीकी से निगरानी करें और 24–72 घंटों में एक और स्पष्ट चित्र से तुलना करें।",
+      "A photo alone cannot confirm the exact crop disease or pest.":"केवल एक फोटो से सटीक फसल रोग या कीट की पुष्टि नहीं की जा सकती।",
+      "The image was successfully processed and can be used as a baseline for future comparisons.":"चित्र सफलतापूर्वक प्रोसेस किया गया है और भविष्य की तुलना के लिए आधार के रूप में उपयोग किया जा सकता है।",
+      "Check irrigation balance and inspect leaves for nutrient deficiency, sucking-pest damage or early disease symptoms.":"सिंचाई संतुलन जाँचें और पोषक तत्वों की कमी, रस चूसने वाले कीटों की क्षति या शुरुआती रोग लक्षणों के लिए पत्तियों का निरीक्षण करें।",
+      "Inspect the affected margins and undersides of leaves for fungal spots, insect injury or physical damage.":"प्रभावित किनारों और पत्तियों के निचले हिस्से में फफूंद के धब्बे, कीट क्षति या भौतिक नुकसान की जाँच करें।",
+      "Retake the image in even daylight with the leaf filling most of the frame.":"समान दिन के प्रकाश में, पत्ती को फ्रेम का अधिकांश भाग भरते हुए एक और चित्र लें।",
+      "Avoid strong glare and use diffuse daylight for a more reliable scan.":"तेज़ चमक से बचें और अधिक विश्वसनीय स्कैन के लिए फैली हुई दिन की रोशनी का उपयोग करें।",
+      "Use a closer, sharper photo with the affected leaf clearly visible.":"प्रभावित पत्ती स्पष्ट दिखाई दे, ऐसी नज़दीकी और साफ तस्वीर लें।",
+      "Consider only after confirming the crop and target pest/disease on the product label.":"उत्पाद लेबल पर फसल और लक्षित कीट/रोग की पुष्टि करने के बाद ही विचार करें।",
+      "Indicative price:":"अनुमानित कीमत:","No active alerts.":"कोई सक्रिय अलर्ट नहीं है।","No schedules yet.":"अभी कोई शेड्यूल नहीं है।",
+      "System ready":"सिस्टम तैयार है","Available in demo":"डेमो में उपलब्ध","Enabled":"सक्रिय","records ready":"रिकॉर्ड तैयार हैं","active":"सक्रिय",
+      "Crop removed":"फसल हटाई गई","Schedule added":"शेड्यूल जोड़ा गया","Alerts cleared":"अलर्ट साफ किए गए","Settings saved":"सेटिंग्स सहेजी गईं","Demo data reset":"डेमो डेटा रीसेट किया गया",
+      "Please choose a JPG, PNG or other image file":"JPG, PNG या कोई अन्य चित्र फ़ाइल चुनें","Could not read this image. Try JPG or PNG.":"चित्र पढ़ा नहीं जा सका। JPG या PNG आज़माएँ।",
+      "AI crop scan completed":"AI फसल स्कैन पूरा हुआ","Auto mode":"ऑटो मोड","selected":"चयनित","plan activated":"प्लान सक्रिय किया गया",
+      "Enter a valid UPI ID":"मान्य UPI ID दर्ज करें","Enter valid card details":"मान्य कार्ड विवरण दर्ज करें","Reset all demo data?":"सभी डेमो डेटा रीसेट करें?"
+    }
+  };
+
+  // Merge extra translations into the existing dictionary without losing the original
+  // pesticide/crop terms already present in the file.
+  Object.keys(EXTRA).forEach(L=>{
+    T[L]=Object.assign({},T[L]||{},EXTRA[L]);
+  });
+
+  function currentLang(){return localStorage.getItem(LANG_KEY)||"en";}
+  function buildReverse(){
+    const r={en:{},te:{},hi:{}};
+    ["en","te","hi"].forEach(L=>{
+      Object.keys(T[L]||{}).forEach(k=>{r[L][T[L][k]]=k;});
+    });
+    return r;
+  }
+
+  function translateKey(k){
+    const L=currentLang();
+    return (T[L]&&T[L][k]) || k;
+  }
+
+  function keyForText(text, el){
+    if(!text) return "";
+    if(el && el.dataset && el.dataset.i18nKey) return el.dataset.i18nKey;
+    if(T.en && T.en[text]) return text;
+    const rev=buildReverse();
+    if(rev[currentLang()] && rev[currentLang()][text]) return rev[currentLang()][text];
+    // Existing original dictionary may contain translated values not yet present in EXTRA.
+    for(const L of ["en","te","hi"]){
+      if(T[L] && Object.prototype.hasOwnProperty.call(T[L],text)) return text;
+    }
+    return "";
+  }
+
+  function translateDynamic(text){
+    const L=currentLang();
+    if(!text) return text;
+    if(T[L] && T[L][text]) return T[L][text];
+
+    // Dynamic renderAll strings
+    let m=text.match(/^(\d+)\s+records ready$/);
+    if(m) return L==="te" ? `${m[1]} రికార్డులు సిద్ధంగా ఉన్నాయి` : L==="hi" ? `${m[1]} रिकॉर्ड तैयार हैं` : text;
+    m=text.match(/^(.+?) active$/);
+    if(m) return L==="te" ? `${m[1]} క్రియాశీలం` : L==="hi" ? `${m[1]} सक्रिय` : text;
+    m=text.match(/^Auto Mode: (ON|OFF)$/);
+    if(m) return L==="te" ? `ఆటో మోడ్: ${m[1]==="ON"?"ఆన్":"ఆఫ్"}` : L==="hi" ? `ऑटो मोड: ${m[1]==="ON"?"चालू":"बंद"}` : text;
+    m=text.match(/^(\d+)%$/);
+    if(m) return text; // numbers stay unchanged
+    m=text.match(/^💧 (.+?) at (.+?) — (.+?) min$/);
+    if(m) return L==="te" ? `💧 ${m[1]} వద్ద ${m[2]} — ${m[3]} నిమిషాలు` : L==="hi" ? `💧 ${m[1]} पर ${m[2]} — ${m[3]} मिनट` : text;
+    m=text.match(/^Visual screen completed for (.+?)\. Detected green (.+?)%, yellow (.+?)%, brown (.+?)% of sampled pixels\.$/);
+    if(m) return L==="te"
+      ? `${m[1]} కోసం దృశ్య స్క్రీనింగ్ పూర్తయింది. శాంపిల్ చేసిన పిక్సెళ్లలో ఆకుపచ్చ ${m[2]}%, పసుపు ${m[3]}%, గోధుమ ${m[4]}% గుర్తించబడ్డాయి.`
+      : L==="hi"
+      ? `${m[1]} के लिए दृश्य स्क्रीनिंग पूरी हुई। सैंपल किए गए पिक्सेल में हरा ${m[2]}%, पीला ${m[3]}%, भूरा ${m[4]}% पाया गया।`
+      : text;
+    return text;
+  }
+
+  function markAndTranslate(root=document){
+    const selectors="h1,h2,h3,h4,h5,h6,p,label,button,th,td,span,small,.muted,.tag,.pill,.note,.recommend";
+    root.querySelectorAll(selectors).forEach(el=>{
+      if(el.closest(".scene3d")) return;
+      if(el.children.length && !el.matches("button")) return;
+      const raw=el.textContent.trim();
+      if(!raw) return;
+      let k=keyForText(raw,el);
+      if(k){el.dataset.i18nKey=k;el.textContent=translateKey(k);}
+      else {
+        const d=translateDynamic(raw);
+        if(d!==raw){el.textContent=d;}
+      }
+    });
+
+    root.querySelectorAll("input[placeholder],textarea[placeholder]").forEach(el=>{
+      const raw=el.getAttribute("placeholder");
+      const k=el.dataset.i18nPlaceholder || keyForText(raw,el);
+      if(k){el.dataset.i18nPlaceholder=k;el.placeholder=translateKey(k);}
+      else el.placeholder=translateDynamic(raw);
+    });
+
+    root.querySelectorAll("select option").forEach(opt=>{
+      const raw=opt.textContent.trim();
+      const k=keyForText(raw,opt);
+      if(k){opt.dataset.i18nKey=k;opt.textContent=translateKey(k);}
+      else opt.textContent=translateDynamic(raw);
+    });
+
+    const title=document.getElementById("pageTitle");
+    if(title){
+      const page=document.querySelector(".page.active");
+      if(page){
+        const h=page.querySelector("h1,h2");
+        if(h){
+          const base=keyForText(h.textContent.trim(),h);
+          if(base) title.textContent=translateKey(base);
+          else {
+            const id=page.id;
+            const fallback={dashboard:"Dashboard",crops:"My Crops",scan:"AI Crop Scan",irrigation:"Smart Irrigation",alerts:"Alerts",pesticides:"Pesticides",settings:"Settings"}[id]||"Dashboard";
+            title.textContent=translateKey(fallback);
+          }
+        }
+      }
+    }
+    const langSel=document.getElementById("language");
+    if(langSel) langSel.value=currentLang();
+    document.documentElement.lang=currentLang()==="te"?"te-IN":currentLang()==="hi"?"hi-IN":"en";
+  }
+
+  // Make the existing renderAll language-safe. Every render is followed by a translation pass.
+  const originalRenderAll=window.renderAll;
+  if(typeof originalRenderAll==="function"){
+    window.renderAll=function(){
+      originalRenderAll();
+      requestAnimationFrame(()=>markAndTranslate(document));
+    };
+  }
+
+  window.setLanguage=function(v){
+    const next=["en","te","hi","ta","kn","ml","mr","bn"].includes(v)?v:"en";
+    localStorage.setItem(LANG_KEY,next);
+    markAndTranslate(document);
+    if(typeof window.renderAll==="function") window.renderAll();
+    setTimeout(()=>markAndTranslate(document),0);
+    setTimeout(()=>markAndTranslate(document),80);
+  };
+
+  const langSel=document.getElementById("language");
+  if(langSel){
+    langSel.onchange=e=>window.setLanguage(e.target.value);
+    langSel.value=currentLang();
+  }
+
+  // Translate newly created rows/cards after crop, alert, schedule, pesticide or scan updates.
+  const observer=new MutationObserver(muts=>{
+    let changed=false;
+    muts.forEach(m=>{if(m.addedNodes && m.addedNodes.length) changed=true;});
+    if(changed) requestAnimationFrame(()=>markAndTranslate(document));
+  });
+  let translating=false;
+   observer.disconnect();
+   observer.observe(document.body,{childList:true,subtree:true});
+
+
+  // Initial pass, plus delayed passes for the first render/splash.
+  markAndTranslate(document);
+  setTimeout(()=>markAndTranslate(document),0);
+  setTimeout(()=>markAndTranslate(document),250);
+})();
+
+
+
+/* ===== FINAL LANGUAGE ROUTER FIX: NAVIGATION + EVERY PAGE ===== */
+(function(){
+  const NAV={
+    dashboard:{en:"Dashboard",te:"డ్యాష్‌బోర్డ్",hi:"डैशबोर्ड"},
+    crops:{en:"My Crops",te:"నా పంటలు",hi:"मेरी फसलें"},
+    scan:{en:"AI Crop Scan",te:"AI పంట స్కాన్",hi:"AI फसल स्कैन"},
+    irrigation:{en:"Irrigation",te:"నీటిపారుదల",hi:"सिंचाई"},
+    alerts:{en:"Alerts",te:"హెచ్చరికలు",hi:"अलर्ट"},
+    pesticides:{en:"Pesticides",te:"పురుగుమందులు",hi:"कीटनाशक"},
+    subscription:{en:"Payment / Subscription",te:"చెల్లింపు / సబ్‌స్క్రిప్షన్",hi:"भुगतान / सदस्यता"},
+    settings:{en:"Settings",te:"సెట్టింగులు",hi:"सेटिंग्स"}
+  };
+  const EM={
+    dashboard:"📊 ",crops:"🌱 ",scan:"🔬 ",irrigation:"💧 ",alerts:"🔔 ",pesticides:"🧪 ",subscription:"💳 ",settings:"⚙️ "
+  };
+
+  function L(){return localStorage.getItem("agriShieldLanguage")||"en";}
+  function navText(page){return (NAV[page]||{})[L()]||NAV[page].en;}
+
+  window.applyAgriShieldLanguage=function(){
+    const l=L();
+
+    // Sidebar: always translate from the page key, never from already-translated text.
+    document.querySelectorAll(".nav button[data-page]").forEach(btn=>{
+      const page=btn.dataset.page;
+      if(NAV[page]) btn.textContent=EM[page]+navText(page);
+    });
+
+    // Page title is controlled by the active page, so navigation never resets it to English.
+    const active=document.querySelector(".page.active");
+    const title=document.getElementById("pageTitle");
+    if(active && title && NAV[active.id]) title.textContent=navText(active.id);
+
+    // Keep language selector in sync.
+    const sel=document.getElementById("language");
+    if(sel) sel.value=l;
+
+    // Translate all known static/dynamic text using the robust engine already installed.
+    if(typeof markAndTranslate==="function") markAndTranslate(document);
+
+    // markAndTranslate may see the emoji nav as unknown; restore the explicit nav after it.
+    document.querySelectorAll(".nav button[data-page]").forEach(btn=>{
+      const page=btn.dataset.page;
+      if(NAV[page]) btn.textContent=EM[page]+navText(page);
+    });
+    if(active && title && NAV[active.id]) title.textContent=navText(active.id);
+  };
+
+  // Make navigation itself language-aware. It also fixes the page title after every click.
+  document.querySelectorAll(".nav button[data-page]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      setTimeout(()=>window.applyAgriShieldLanguage(),0);
+      setTimeout(()=>window.applyAgriShieldLanguage(),60);
+    });
+  });
+
+  // Wrap go() if available so every programmatic page change follows the selected language.
+  if(typeof window.go==="function"){
+    const oldGo=window.go;
+    window.go=function(page){
+      oldGo(page);
+      setTimeout(()=>window.applyAgriShieldLanguage(),0);
+    };
+  }
+
+  // Re-apply after renderAll because renderAll changes status values and some headings.
+  if(typeof window.renderAll==="function"){
+    const oldRender=window.renderAll;
+    window.renderAll=function(){
+      oldRender();
+      setTimeout(()=>window.applyAgriShieldLanguage(),0);
+    };
+  }
+
+  // Change language with one source of truth and immediately refresh the whole UI.
+  window.setLanguage=function(value){
+    const next=["en","te","hi"].includes(value)?value:"en";
+    localStorage.setItem("agriShieldLanguage",next);
+    window.applyAgriShieldLanguage();
+    if(typeof window.renderAll==="function") window.renderAll();
+    setTimeout(()=>window.applyAgriShieldLanguage(),0);
+    setTimeout(()=>window.applyAgriShieldLanguage(),100);
+    setTimeout(()=>window.applyAgriShieldLanguage(),300);
+  };
+
+  const selector=document.getElementById("language");
+  if(selector){
+    selector.onchange=function(e){window.setLanguage(e.target.value);};
+  }
+
+  // Initial state and mutation handling.
+  window.applyAgriShieldLanguage();
+  setTimeout(window.applyAgriShieldLanguage,0);
+  setTimeout(window.applyAgriShieldLanguage,300);
+})();
+
+</script>
+<script>
+(function(){
+  'use strict';
+  /* Fast persistence: write immediately, render at most once per frame. */
+  const originalSave=window.save;
+  if(typeof originalSave==='function'){
+    let renderQueued=false;
+    window.save=function(){
+      try{localStorage.setItem('agriShieldState',JSON.stringify(state));}catch(e){}
+      if(!renderQueued){
+        renderQueued=true;
+        requestAnimationFrame(function(){
+          renderQueued=false;
+          if(typeof window.renderAll==='function') window.renderAll();
+        });
+      }
+    };
+  }
+
+  /* Navigation is a single DOM operation instead of scanning/rebuilding more than needed. */
+  window.go=function(page){
+    const target=document.getElementById(page);
+    if(!target) return;
+    const current=document.querySelector('.page.active');
+    if(current!==target){
+      if(current) current.classList.remove('active');
+      target.classList.add('active');
+    }
+    document.querySelectorAll('.nav button[data-page].active').forEach(b=>b.classList.remove('active'));
+    const nav=document.querySelector('.nav button[data-page="'+CSS.escape(page)+'"]');
+    if(nav) nav.classList.add('active');
+    const titles={dashboard:'Dashboard',crops:'My Crops',scan:'AI Crop Scan',irrigation:'Irrigation',alerts:'Alerts',pesticides:'Pesticides',settings:'Settings'};
+    const title=document.getElementById('pageTitle');
+    if(title) title.textContent=titles[page]||page;
+    window.scrollTo({top:0,behavior:'smooth'});
+    if(typeof window.applyAgriShieldLanguage==='function') window.applyAgriShieldLanguage();
+  };
+
+  /* Language router: navigation only updates the two small areas it needs.
+     Full translation runs only when the language actually changes. */
+  const NAV={
+     dashboard:{en:'Dashboard',te:'డ్యాష్‌బోర్డ్',hi:'डैशबोर्ड',ta:'டாஷ்போர்டு',kn:'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',ml:'ഡാഷ്ബോർഡ്',mr:'डॅशबोर्ड',bn:'ড্যাশবোর্ড'},
+     crops:{en:'My Crops',te:'నా పంటలు',hi:'मेरी फसलें',ta:'என் பயிர்கள்',kn:'ನನ್ನ ಬೆಳೆಗಳು',ml:'എന്റെ വിളകൾ',mr:'माझी पिके',bn:'আমার ফসল'},
+     scan:{en:'AI Crop Scan',te:'AI పంట స్కాన్',hi:'AI फसल स्कैन',ta:'AI பயிர் ஸ்கேன்',kn:'AI ಬೆಳೆ ಸ್ಕ್ಯಾನ್',ml:'AI വിള സ്കാൻ',mr:'AI पीक स्कॅन',bn:'AI ফসল স্ক্যান'},
+     irrigation:{en:'Irrigation',te:'నీటిపారుదల',hi:'सिंचाई',ta:'நீர்ப்பாசனம்',kn:'ನೀರಾವರಿ',ml:'ജലസേചനം',mr:'सिंचन',bn:'সেচ'},
+     alerts:{en:'Alerts',te:'హెచ్చరికలు',hi:'अलर्ट',ta:'எச்சரிக்கைகள்',kn:'ಎಚ್ಚರಿಕೆಗಳು',ml:'അറിയിപ്പുകൾ',mr:'सूचना',bn:'সতর্কতা'},
+     pesticides:{en:'Pesticides',te:'పురుగుమందులు',hi:'कीटनाशक',ta:'பூச்சிக்கொல்லிகள்',kn:'ಕೀಟನಾಶಕಗಳು',ml:'കീടനാശിനികൾ',mr:'कीटकनाशके',bn:'কীটনাশক'},
+     settings:{en:'Settings',te:'సెట్టింగులు',hi:'सेटिंग्स',ta:'அமைப்புகள்',kn:'ಸೆಟ್ಟಿಂಗ್‌ಗಳು',ml:'ക്രമീകരണങ്ങൾ',mr:'सेटिंग्ज',bn:'সেটিংস'}
+   };
+  const EM={dashboard:'📊 ',crops:'🌱 ',scan:'🔬 ',irrigation:'💧 ',alerts:'🔔 ',pesticides:'🧪 ',settings:'⚙️ '};
+  function getLang(){return localStorage.getItem('agriShieldLanguage')||'en'}
+  function syncNav(){
+    const l=getLang();
+    document.querySelectorAll('.nav button[data-page]').forEach(b=>{const p=b.dataset.page;if(NAV[p]) b.textContent=EM[p]+NAV[p][l]});
+    const active=document.querySelector('.page.active'),title=document.getElementById('pageTitle');
+    if(active&&title&&NAV[active.id]) title.textContent=NAV[active.id][l];
+    const sel=document.getElementById('language');if(sel)sel.value=l;
+  }
+  window.applyAgriShieldLanguage=syncNav;
+  window.setLanguage=function(v){
+    const next=['en','te','hi','ta','kn','ml','mr','bn'].includes(v)?v:'en';
+    if(next===getLang()){syncNav();return}
+    localStorage.setItem('agriShieldLanguage',next);
+    if(typeof window.markAndTranslate==='function') window.markAndTranslate(document);
+    requestAnimationFrame(syncNav);
+  };
+  const lang=document.getElementById('language');
+  if(lang) lang.onchange=function(e){window.setLanguage(e.target.value)};
+
+  /* Do not persist/render on every slider pixel. */
+  const threshold=document.getElementById('threshold');
+  if(threshold){
+    let timer=0;
+    threshold.oninput=function(){
+      const v=Number(this.value)||30;
+      document.getElementById('thresholdValue').textContent=v+'%';
+      state.settings.threshold=v;
+      clearTimeout(timer);
+      timer=setTimeout(function(){
+        try{localStorage.setItem('agriShieldState',JSON.stringify(state))}catch(e){}
+      },120);
+    };
+  }
+
+
+  syncNav();
+})();
+</script>
+</body>
+</html>

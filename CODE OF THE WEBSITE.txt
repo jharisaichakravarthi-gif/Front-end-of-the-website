@@ -1,0 +1,2035 @@
+AI SHIELD WEBSITE CODE
+
+1.INDEX PAGE CODE:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AgriShield AI</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Login -->
+    <div id="login-container"></div>
+
+    <!-- Main Application -->
+    <div id="app" class="app">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">🛡️</div>
+
+                <div>
+                    <strong>AgriShield AI</strong>
+                    <small>Smart Farming</small>
+                </div>
+            </div>
+
+            <nav class="nav">
+
+                <button data-page="dashboard">
+                    📊 <span data-i18n="dashboard">Dashboard</span>
+                </button>
+
+                <button data-page="crops">
+                    🌱 <span data-i18n="crops">My Crops</span>
+                </button>
+
+                <button data-page="scan">
+                    🔬 <span data-i18n="scan">AI Crop Scan</span>
+                </button>
+
+                <button data-page="irrigation">
+                    💧 <span data-i18n="irrigation">Irrigation</span>
+                </button>
+
+                <button data-page="alerts">
+                    🔔 <span data-i18n="alerts">Alerts</span>
+                </button>
+
+                <button data-page="pesticides">
+                    🧪 <span data-i18n="pesticides">Pesticides</span>
+                </button>
+
+                <button data-page="settings">
+                    ⚙️ <span data-i18n="settings">Settings</span>
+                </button>
+
+            </nav>
+
+        </aside>
+
+        <!-- Main -->
+        <main class="main">
+
+            <header class="topbar">
+
+                <h2 id="pageTitle">Dashboard</h2>
+
+                <!-- Language -->
+                <select id="language">
+
+                    <option value="en">English</option>
+                    <option value="te">తెలుగు</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="kn">ಕನ್ನಡ</option>
+                    <option value="ml">മലയാളം</option>
+                    <option value="mr">मराठी</option>
+                    <option value="bn">বাংলা</option>
+
+                </select>
+
+                <!-- Profile -->
+                <button id="profileButton">
+                    👤 Profile
+                </button>
+
+            </header>
+
+            <div id="pageContainer">
+
+                <!-- Pages will load here -->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="js/language.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
+
+2.LOGIN PAGE CODE:
+
+<section class="login-page">
+
+    <div class="login-card">
+
+        <div class="login-logo">
+            🛡️
+        </div>
+
+        <h1 data-i18n="appName">
+            AgriShield AI
+        </h1>
+
+        <p data-i18n="loginDescription">
+            Smart farming protection platform
+        </p>
+
+        <form id="loginForm">
+
+            <label data-i18n="email">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label data-i18n="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+            >
+
+            <button type="submit">
+                🔐 <span data-i18n="login">Login</span>
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+3.DASHBOARD CODE:
+
+<section class="page active" id="dashboard">
+
+    <div class="hero">
+
+        <h1 data-i18n="smartFarming">
+            Smart Farming at a Glance 🌾
+        </h1>
+
+        <p data-i18n="dashboardDescription">
+            Monitor crops, irrigation, AI scans, alerts and
+            crop protection products in one place.
+        </p>
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card metric">
+
+            <span class="icon">🌱</span>
+
+            <b id="cropCount">
+                0
+            </b>
+
+            <small data-i18n="activeCrops">
+                Active Crops
+            </small>
+
+        </div>
+
+
+        <div class="card metric">
+
+            <span class="icon">💧</span>
+
+            <b id="soilMoisture">
+                28%
+            </b>
+
+            <small data-i18n="soilMoisture">
+                Soil Moisture
+            </small>
+
+        </div>
+
+
+        <div class="card metric">
+
+            <span class="icon">🌡️</span>
+
+            <b>
+                29°C
+            </b>
+
+            <small data-i18n="temperature">
+                Temperature
+            </small>
+
+        </div>
+
+
+        <div class="card metric">
+
+            <span class="icon">🌾</span>
+
+            <b id="healthyCrops">
+                0
+            </b>
+
+            <small data-i18n="healthyCrops">
+                Healthy Crops
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="grid2">
+
+        <div class="card">
+
+            <h2 data-i18n="quickActions">
+                Quick Actions
+            </h2>
+
+            <button onclick="go('scan')">
+                🔬 AI Crop Scan
+            </button>
+
+            <button onclick="go('irrigation')">
+                💧 Check Irrigation
+            </button>
+
+            <button onclick="go('pesticides')">
+                🧪 Find Pesticides
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2 data-i18n="systemStatus">
+                System Status
+            </h2>
+
+            <span class="pill">
+                ✓ <span data-i18n="ready">Ready</span>
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+4. MY CROPS CODE:
+<section class="page" id="crops">
+
+    <div class="section-header">
+
+        <div>
+            <h1 data-i18n="myCrops">
+                My Crops
+            </h1>
+
+            <p data-i18n="manageCrops">
+                Manage and monitor your crops.
+            </p>
+        </div>
+
+        <button id="addCropButton">
+            ➕ <span data-i18n="addCrop">Add Crop</span>
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2 data-i18n="cropList">
+            Crop List
+        </h2>
+
+        <div id="cropList">
+
+            <!-- Crop cards inserted using JavaScript -->
+
+        </div>
+
+    </div>
+
+
+    <!-- Add Crop Form -->
+
+    <div id="cropModal" class="modal">
+
+        <div class="modal-card">
+
+            <h2 data-i18n="addNewCrop">
+                Add New Crop
+            </h2>
+
+            <input
+                id="cropName"
+                placeholder="Crop name"
+            >
+
+            <input
+                id="cropArea"
+                placeholder="Area"
+            >
+
+            <button onclick="addCrop()">
+                Save Crop
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+5. AI CROP SCAN CODE:
+
+<section class="page" id="scan">
+
+    <h1 data-i18n="aiCropScan">
+        AI Crop Scan
+    </h1>
+
+    <p data-i18n="scanDescription">
+        Upload a crop image to identify possible
+        diseases and receive recommendations.
+    </p>
+
+
+    <div class="scan-card card">
+
+        <div class="upload-area">
+
+            <div class="upload-icon">
+                🔬
+            </div>
+
+            <h2 data-i18n="uploadCropImage">
+                Upload Crop Image
+            </h2>
+
+            <input
+                type="file"
+                id="cropImage"
+                accept="image/*"
+            >
+
+        </div>
+
+
+        <button id="scanButton">
+
+            🔍
+            <span data-i18n="analyzeCrop">
+                Analyze Crop
+            </span>
+
+        </button>
+
+
+        <div id="scanResult">
+
+            <!-- AI result -->
+
+        </div>
+
+    </div>
+
+</section>
+
+6. IRRIGATION CODE
+
+<section class="page" id="irrigation">
+
+    <h1 data-i18n="irrigation">
+        Irrigation
+    </h1>
+
+    <p data-i18n="irrigationDescription">
+        Monitor soil moisture and manage irrigation.
+    </p>
+
+
+    <div class="grid">
+
+        <div class="card metric">
+
+            <span>💧</span>
+
+            <b id="moistureValue">
+                28%
+            </b>
+
+            <small data-i18n="soilMoisture">
+                Soil Moisture
+            </small>
+
+        </div>
+
+
+        <div class="card metric">
+
+            <span>🚿</span>
+
+            <b id="pumpStatus">
+                OFF
+            </b>
+
+            <small data-i18n="pumpStatus">
+                Pump Status
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2 data-i18n="irrigationControl">
+            Irrigation Control
+        </h2>
+
+        <button onclick="togglePump()">
+
+            💧
+            <span data-i18n="togglePump">
+                Turn Pump ON/OFF
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2 data-i18n="irrigationSchedule">
+            Irrigation Schedule
+        </h2>
+
+        <input
+            type="time"
+            id="irrigationTime"
+        >
+
+        <button onclick="saveIrrigationSchedule()">
+            Save Schedule
+        </button>
+
+    </div>
+
+</section>
+
+7. ALERTS CODE:
+
+<section class="page" id="alerts">
+
+    <h1 data-i18n="alerts">
+        Alerts
+    </h1>
+
+    <p data-i18n="alertsDescription">
+        Important notifications about your farm.
+    </p>
+
+
+    <div id="alertList">
+
+        <div class="alert warning">
+
+            ⚠️
+
+            <div>
+
+                <strong data-i18n="lowMoisture">
+                    Low Soil Moisture
+                </strong>
+
+                <p data-i18n="lowMoistureDescription">
+                    Irrigation may be required.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="alert success">
+
+            ✅
+
+            <div>
+
+                <strong data-i18n="cropHealthy">
+                    Crop Healthy
+                </strong>
+
+                <p data-i18n="cropHealthyDescription">
+                    Your crop is currently healthy.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+8. PESTICIDES CODE:
+
+<section class="page" id="pesticides">
+
+    <h1 data-i18n="pesticides">
+        Pesticides
+    </h1>
+
+    <p data-i18n="pesticideDescription">
+        Search crop protection products and
+        recommendations.
+    </p>
+
+
+    <div class="pesticide-search">
+
+        <input
+            type="search"
+            id="pesticideSearch"
+            placeholder="Search pesticides..."
+        >
+
+        <select id="pesticideCategory">
+
+            <option value="all">
+                All Categories
+            </option>
+
+            <option value="insecticide">
+                Insecticides
+            </option>
+
+            <option value="fungicide">
+                Fungicides
+            </option>
+
+            <option value="herbicide">
+                Herbicides
+            </option>
+
+            <option value="biological">
+                Biological
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div
+        id="pesticideList"
+        class="pesticide-grid"
+    >
+
+        <!-- Products generated here -->
+
+    </div>
+
+</section>
+
+9. SETTINGS CODE:
+
+<section class="page" id="settings">
+
+    <h1 data-i18n="settings">
+        Settings
+    </h1>
+
+
+    <div class="card">
+
+        <h2 data-i18n="farmSettings">
+            Farm Settings
+        </h2>
+
+
+        <label data-i18n="farmerName">
+            Farmer Name
+        </label>
+
+        <input
+            id="farmerName"
+            type="text"
+        >
+
+
+        <label data-i18n="farmLocation">
+            Farm Location
+        </label>
+
+        <input
+            id="farmLocation"
+            type="text"
+        >
+
+
+        <label data-i18n="defaultCrop">
+            Default Crop
+        </label>
+
+        <select id="defaultCrop">
+
+            <option>
+                Rice
+            </option>
+
+            <option>
+                Cotton
+            </option>
+
+            <option>
+                Tomato
+            </option>
+
+            <option>
+                Chilli
+            </option>
+
+        </select>
+
+
+        <button onclick="saveSettings()">
+
+            💾
+            <span data-i18n="saveSettings">
+                Save Settings
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <!-- Account -->
+
+    <div class="card">
+
+        <h2 data-i18n="accountProfile">
+            Account Profile
+        </h2>
+
+        <label data-i18n="fullName">
+            Full Name
+        </label>
+
+        <input id="profileName">
+
+
+        <label data-i18n="phone">
+            Phone
+        </label>
+
+        <input id="profilePhone">
+
+
+        <label data-i18n="email">
+            Email
+        </label>
+
+        <input id="profileEmail">
+
+
+        <button onclick="saveProfile()">
+
+            👤
+            <span data-i18n="saveProfile">
+                Save Profile
+            </span>
+
+        </button>
+
+    </div>
+
+</section>
+
+10.Language System code in javascript:
+
+const translations = {
+
+    en: {
+
+        dashboard: "Dashboard",
+        crops: "My Crops",
+        scan: "AI Crop Scan",
+        irrigation: "Irrigation",
+        alerts: "Alerts",
+        pesticides: "Pesticides",
+        settings: "Settings",
+
+        appName: "AgriShield AI",
+
+        smartFarming:
+            "Smart Farming at a Glance 🌾",
+
+        dashboardDescription:
+            "Monitor crops, irrigation, AI scans, alerts and crop protection products in one place.",
+
+        activeCrops:
+            "Active Crops",
+
+        soilMoisture:
+            "Soil Moisture",
+
+        temperature:
+            "Temperature",
+
+        healthyCrops:
+            "Healthy Crops",
+
+        quickActions:
+            "Quick Actions",
+
+        systemStatus:
+            "System Status",
+
+        ready:
+            "Ready",
+
+        myCrops:
+            "My Crops",
+
+        manageCrops:
+            "Manage and monitor your crops.",
+
+        addCrop:
+            "Add Crop",
+
+        aiCropScan:
+            "AI Crop Scan",
+
+        scanDescription:
+            "Upload a crop image to identify possible diseases and receive recommendations.",
+
+        uploadCropImage:
+            "Upload Crop Image",
+
+        analyzeCrop:
+            "Analyze Crop",
+
+        irrigationDescription:
+            "Monitor soil moisture and manage irrigation.",
+
+        pumpStatus:
+            "Pump Status",
+
+        irrigationControl:
+            "Irrigation Control",
+
+        irrigationSchedule:
+            "Irrigation Schedule",
+
+        alertsDescription:
+            "Important notifications about your farm.",
+
+        pesticides:
+            "Pesticides",
+
+        pesticideDescription:
+            "Search crop protection products and recommendations.",
+
+        farmSettings:
+            "Farm Settings",
+
+        farmerName:
+            "Farmer Name",
+
+        farmLocation:
+            "Farm Location",
+
+        defaultCrop:
+            "Default Crop",
+
+        saveSettings:
+            "Save Settings",
+
+        accountProfile:
+            "Account Profile",
+
+        fullName:
+            "Full Name",
+
+        phone:
+            "Phone",
+
+        email:
+            "Email",
+
+        saveProfile:
+            "Save Profile",
+
+        login:
+            "Login",
+
+        password:
+            "Password"
+
+    },
+
+
+    te: {
+
+        dashboard: "డ్యాష్‌బోర్డ్",
+        crops: "నా పంటలు",
+        scan: "AI పంట స్కాన్",
+        irrigation: "నీటిపారుదల",
+        alerts: "హెచ్చరికలు",
+        pesticides: "పురుగుమందులు",
+        settings: "సెట్టింగులు",
+
+        appName:
+            "అగ్రిషీల్డ్ AI",
+
+        smartFarming:
+            "స్మార్ట్ వ్యవసాయం ఒక చూపులో 🌾",
+
+        dashboardDescription:
+            "పంటలు, నీటిపారుదల, AI స్కాన్లు, హెచ్చరికలు మరియు పంట రక్షణ ఉత్పత్తులను ఒకే చోట పర్యవేక్షించండి.",
+
+        activeCrops:
+            "క్రియాశీల పంటలు",
+
+        soilMoisture:
+            "నేల తేమ",
+
+        temperature:
+            "ఉష్ణోగ్రత",
+
+        healthyCrops:
+            "ఆరోగ్యకరమైన పంటలు",
+
+        quickActions:
+            "త్వరిత చర్యలు",
+
+        systemStatus:
+            "సిస్టమ్ స్థితి",
+
+        ready:
+            "సిద్ధంగా ఉంది",
+
+        myCrops:
+            "నా పంటలు",
+
+        manageCrops:
+            "మీ పంటలను నిర్వహించి పర్యవేక్షించండి.",
+
+        addCrop:
+            "పంటను జోడించండి",
+
+        aiCropScan:
+            "AI పంట స్కాన్",
+
+        uploadCropImage:
+            "పంట చిత్రాన్ని అప్‌లోడ్ చేయండి",
+
+        analyzeCrop:
+            "పంటను విశ్లేషించండి",
+
+        irrigationDescription:
+            "నేల తేమను పర్యవేక్షించి నీటిపారుదలను నిర్వహించండి.",
+
+        alertsDescription:
+            "మీ వ్యవసాయానికి సంబంధించిన ముఖ్యమైన హెచ్చరికలు.",
+
+        pesticideDescription:
+            "పంట రక్షణ ఉత్పత్తులు మరియు సిఫార్సులను శోధించండి.",
+
+        farmSettings:
+            "వ్యవసాయ సెట్టింగులు",
+
+        farmerName:
+            "రైతు పేరు",
+
+        farmLocation:
+            "వ్యవసాయ స్థానం",
+
+        defaultCrop:
+            "డిఫాల్ట్ పంట",
+
+        saveSettings:
+            "సెట్టింగులను సేవ్ చేయండి",
+
+        accountProfile:
+            "ఖాతా ప్రొఫైల్",
+
+        fullName:
+            "పూర్తి పేరు",
+
+        phone:
+            "ఫోన్",
+
+        email:
+            "ఇమెయిల్",
+
+        saveProfile:
+            "ప్రొఫైల్‌ను సేవ్ చేయండి",
+
+        login:
+            "లాగిన్",
+
+        password:
+            "పాస్‌వర్డ్"
+
+    }
+
+};
+
+11. LANGUAGE CONTROLLER IN JAVASCRIPT CODE:
+
+let currentLanguage =
+    localStorage.getItem("agriShieldLanguage") || "en";
+
+
+function translatePage() {
+
+    const dictionary =
+        translations[currentLanguage] ||
+        translations.en;
+
+
+    document.documentElement.lang =
+        currentLanguage;
+
+
+    document
+        .querySelectorAll("[data-i18n]")
+        .forEach(element => {
+
+            const key =
+                element.dataset.i18n;
+
+            if (dictionary[key]) {
+
+                element.textContent =
+                    dictionary[key];
+
+            }
+
+        });
+
+
+    document
+        .querySelectorAll("[data-i18n-placeholder]")
+        .forEach(element => {
+
+            const key =
+                element.dataset.i18nPlaceholder;
+
+            if (dictionary[key]) {
+
+                element.placeholder =
+                    dictionary[key];
+
+            }
+
+        });
+
+
+    updateNavigationLanguage();
+
+}
+
+
+function changeLanguage(language) {
+
+    if (!translations[language]) {
+
+        language = "en";
+
+    }
+
+
+    currentLanguage = language;
+
+
+    localStorage.setItem(
+        "agriShieldLanguage",
+        language
+    );
+
+
+    translatePage();
+
+}
+
+
+function updateNavigationLanguage() {
+
+    document
+        .querySelectorAll(".nav button")
+        .forEach(button => {
+
+            const page =
+                button.dataset.page;
+
+            const span =
+                button.querySelector("[data-i18n]");
+
+            if (
+                span &&
+                translations[currentLanguage][page]
+            ) {
+
+                span.textContent =
+                    translations[currentLanguage][page];
+
+            }
+
+        });
+
+}
+
+
+document
+    .getElementById("language")
+    ?.addEventListener(
+        "change",
+        event => {
+
+            changeLanguage(
+                event.target.value
+            );
+
+        }
+    );
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const selector =
+            document.getElementById("language");
+
+        if (selector) {
+
+            selector.value =
+                currentLanguage;
+
+        }
+
+        translatePage();
+
+    }
+);
+
+12. MAIN APPLICATION IN JAWASCRIPT:
+
+const state = {
+
+    currentPage: "dashboard",
+
+    crops: [],
+
+    alerts: [],
+
+    irrigation: {
+
+        pump: false,
+
+        moisture: 28,
+
+        schedule: null
+
+    },
+
+    profile: {
+
+        name: "",
+
+        phone: "",
+
+        email: ""
+
+    }
+
+};
+
+
+function go(page) {
+
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(section => {
+
+        section.classList.remove("active");
+
+    });
+
+
+    const target =
+        document.getElementById(page);
+
+    if (!target) return;
+
+
+    target.classList.add("active");
+
+
+    document
+        .querySelectorAll(".nav button")
+        .forEach(button => {
+
+            button.classList.remove("active");
+
+        });
+
+
+    const nav =
+        document.querySelector(
+            `.nav button[data-page="${page}"]`
+        );
+
+
+    if (nav) {
+
+        nav.classList.add("active");
+
+    }
+
+
+    state.currentPage = page;
+
+
+    updatePageTitle(page);
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+
+    translatePage();
+
+}
+
+
+function updatePageTitle(page) {
+
+    const title =
+        document.getElementById("pageTitle");
+
+    if (!title) return;
+
+
+    const dictionary =
+        translations[currentLanguage];
+
+
+    if (dictionary[page]) {
+
+        title.textContent =
+            dictionary[page];
+
+    }
+
+}
+
+
+function addCrop() {
+
+    const name =
+        document.getElementById("cropName")
+            ?.value.trim();
+
+    const area =
+        document.getElementById("cropArea")
+            ?.value.trim();
+
+
+    if (!name) {
+
+        alert("Please enter crop name.");
+
+        return;
+
+    }
+
+
+    state.crops.push({
+
+        id: Date.now(),
+
+        name,
+
+        area
+
+    });
+
+
+    saveState();
+
+    renderCrops();
+
+}
+
+
+function renderCrops() {
+
+    const container =
+        document.getElementById("cropList");
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    state.crops.forEach(crop => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "crop-card";
+
+
+        card.innerHTML = `
+
+            <div class="crop-icon">
+                🌱
+            </div>
+
+            <div>
+
+                <h3>
+                    ${escapeHTML(crop.name)}
+                </h3>
+
+                <p>
+                    ${escapeHTML(crop.area || "")}
+                </p>
+
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+
+    const count =
+        document.getElementById("cropCount");
+
+
+    if (count) {
+
+        count.textContent =
+            state.crops.length;
+
+    }
+
+}
+
+
+function togglePump() {
+
+    state.irrigation.pump =
+        !state.irrigation.pump;
+
+
+    const status =
+        document.getElementById("pumpStatus");
+
+
+    if (status) {
+
+        status.textContent =
+            state.irrigation.pump
+                ? "ON"
+                : "OFF";
+
+    }
+
+
+    saveState();
+
+}
+
+
+function saveIrrigationSchedule() {
+
+    const time =
+        document.getElementById(
+            "irrigationTime"
+        )?.value;
+
+
+    state.irrigation.schedule =
+        time;
+
+
+    saveState();
+
+}
+
+
+function saveProfile() {
+
+    state.profile.name =
+        document.getElementById(
+            "profileName"
+        )?.value || "";
+
+
+    state.profile.phone =
+        document.getElementById(
+            "profilePhone"
+        )?.value || "";
+
+
+    state.profile.email =
+        document.getElementById(
+            "profileEmail"
+        )?.value || "";
+
+
+    saveState();
+
+}
+
+
+function saveState() {
+
+    localStorage.setItem(
+
+        "agriShieldState",
+
+        JSON.stringify(state)
+
+    );
+
+}
+
+
+function loadState() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                "agriShieldState"
+            );
+
+
+        if (saved) {
+
+            Object.assign(
+                state,
+                JSON.parse(saved)
+            );
+
+        }
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "State loading failed",
+            error
+        );
+
+    }
+
+}
+
+
+function escapeHTML(value) {
+
+    return String(value)
+
+        .replaceAll("&", "&amp;")
+
+        .replaceAll("<", "&lt;")
+
+        .replaceAll(">", "&gt;")
+
+        .replaceAll('"', "&quot;")
+
+        .replaceAll("'", "&#039;");
+
+}
+
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+        loadState();
+
+        renderCrops();
+
+
+        document
+            .querySelectorAll(
+                ".nav button[data-page]"
+            )
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        go(
+                            button.dataset.page
+                        );
+
+                    }
+                );
+
+            });
+
+    }
+
+);
+
+13. PESTICIDES IN JAVACRIPT:
+
+const pesticides = [
+
+    {
+        name: "Neem Oil",
+        category: "biological",
+        crop: "Multiple Crops"
+    },
+
+    {
+        name: "Azadirachtin",
+        category: "biological",
+        crop: "Vegetables"
+    },
+
+    {
+        name: "Trichoderma",
+        category: "biological",
+        crop: "Multiple Crops"
+    },
+
+    {
+        name: "Copper Fungicide",
+        category: "fungicide",
+        crop: "Vegetables"
+    },
+
+    {
+        name: "Sulfur",
+        category: "fungicide",
+        crop: "Multiple Crops"
+    }
+
+];
+
+
+function renderPesticides() {
+
+    const container =
+        document.getElementById(
+            "pesticideList"
+        );
+
+
+    if (!container) return;
+
+
+    const search =
+        document.getElementById(
+            "pesticideSearch"
+        )?.value
+            .toLowerCase() || "";
+
+
+    const category =
+        document.getElementById(
+            "pesticideCategory"
+        )?.value || "all";
+
+
+    const results =
+        pesticides.filter(product => {
+
+            const matchesSearch =
+                product.name
+                    .toLowerCase()
+                    .includes(search);
+
+
+            const matchesCategory =
+                category === "all" ||
+                product.category === category;
+
+
+            return (
+                matchesSearch &&
+                matchesCategory
+            );
+
+        });
+
+
+    container.innerHTML = "";
+
+
+    results.forEach(product => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "card pesticide-card";
+
+
+        card.innerHTML = `
+
+            <div class="pesticide-icon">
+                🧪
+            </div>
+
+            <h3>
+                ${escapeHTML(product.name)}
+            </h3>
+
+            <p>
+                ${escapeHTML(product.crop)}
+            </p>
+
+            <span class="tag">
+                ${escapeHTML(product.category)}
+            </span>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+        document
+            .getElementById(
+                "pesticideSearch"
+            )
+            ?.addEventListener(
+                "input",
+                renderPesticides
+            );
+
+
+        document
+            .getElementById(
+                "pesticideCategory"
+            )
+            ?.addEventListener(
+                "change",
+                renderPesticides
+            );
+
+
+        renderPesticides();
+
+    }
+
+);
+
+14. WEBSITE OVERALL PERFORMANCE IN CSS:
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    margin: 0;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    background:
+        #f4f7f5;
+
+    color:
+        #1d2b22;
+
+}
+
+
+.app {
+
+    display: flex;
+
+    min-height: 100vh;
+
+}
+
+
+/* Sidebar */
+
+.sidebar {
+
+    width: 250px;
+
+    position: fixed;
+
+    left: 0;
+
+    top: 0;
+
+    bottom: 0;
+
+    padding: 24px;
+
+    background:
+        #163c2a;
+
+    color: white;
+
+}
+
+
+.brand {
+
+    display: flex;
+
+    gap: 12px;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+
+}
+
+
+.brand-icon {
+
+    font-size: 32px;
+
+}
+
+
+.brand small {
+
+    display: block;
+
+    opacity: .7;
+
+}
+
+
+.nav {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+}
+
+
+.nav button {
+
+    border: 0;
+
+    background: transparent;
+
+    color: white;
+
+    padding: 14px;
+
+    text-align: left;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+}
+
+
+.nav button:hover,
+.nav button.active {
+
+    background:
+        rgba(255,255,255,.15);
+
+}
+
+
+/* Main */
+
+.main {
+
+    margin-left: 250px;
+
+    width: calc(100% - 250px);
+
+}
+
+
+.topbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 20;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 18px 28px;
+
+    background:
+        rgba(255,255,255,.95);
+
+    backdrop-filter:
+        blur(10px);
+
+}
+
+
+.topbar h2 {
+
+    flex: 1;
+
+}
+
+
+.lang {
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    border: 1px solid #ccc;
+
+}
+
+
+.content {
+
+    padding: 30px;
+
+}
+
+
+/* Pages */
+
+.page {
+
+    display: none;
+
+}
+
+
+.page.active {
+
+    display: block;
+
+}
+
+
+/* Cards */
+
+.grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+}
+
+
+.grid2 {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+
+    margin-top: 18px;
+
+}
+
+
+.card {
+
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 5px 25px
+        rgba(0,0,0,.06);
+
+}
+
+
+.metric {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+}
+
+
+.metric .icon {
+
+    font-size: 30px;
+
+}
+
+
+.metric b {
+
+    font-size: 28px;
+
+}
+
+
+/* Forms */
+
+input,
+select {
+
+    width: 100%;
+
+    padding: 12px;
+
+    margin:
+        8px 0 16px;
+
+    border:
+        1px solid #d6ddd8;
+
+    border-radius: 8px;
+
+}
+
+
+button {
+
+    padding:
+        11px 16px;
+
+    border: 0;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+}
+
+
+/* Pesticides */
+
+.pesticide-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+
+    margin-top: 20px;
+
+}
+
+
+.pesticide-search {
+
+    display: grid;
+
+    grid-template-columns:
+        2fr 1fr;
+
+    gap: 12px;
+
+}
+
+
+/* Mobile */
+
+@media(max-width: 900px) {
+
+    .sidebar {
+
+        width: 210px;
+
+    }
+
+    .main {
+
+        margin-left: 210px;
+
+        width:
+            calc(100% - 210px);
+
+    }
+
+    .grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+    .pesticide-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media(max-width: 600px) {
+
+    .sidebar {
+
+        position: relative;
+
+        width: 100%;
+
+    }
+
+    .app {
+
+        flex-direction: column;
+
+    }
+
+    .main {
+
+        margin-left: 0;
+
+        width: 100%;
+
+    }
+
+    .grid,
+    .grid2,
+    .pesticide-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
